@@ -4,13 +4,24 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 function App() {
   const [models, setModels] = useState([]);
+  const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     async function fetchModels() {
+      setIsLoading(true);
+      setError("");
+
       try {
-        const response = await fetch(`${API_URL}/models`);
+        const query = new URLSearchParams();
+
+        if (search.trim()) {
+          query.append("search", search.trim());
+        }
+
+        const url = `${API_URL}/models?${query.toString()}`;
+        const response = await fetch(url);
 
         if (!response.ok) {
           throw new Error("Unable to load models.");
@@ -26,7 +37,7 @@ function App() {
     }
 
     fetchModels();
-  }, []);
+  }, [search]);
 
   return (
     <main>
@@ -34,6 +45,15 @@ function App() {
 
       <section>
         <h2>AI Models</h2>
+
+        <label htmlFor="search">Search by title</label>
+        <input
+          id="search"
+          type="search"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          placeholder="Search a model..."
+        />
 
         {isLoading && <p>Loading models...</p>}
         {error && <p>{error}</p>}

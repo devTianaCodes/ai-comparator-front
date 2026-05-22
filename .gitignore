@@ -24,3 +24,5 @@ pnpm-debug.log*
 coverage/
 .vite/
 
+# Editor settings
+.vscode/

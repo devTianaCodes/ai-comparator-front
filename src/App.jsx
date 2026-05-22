@@ -12,6 +12,8 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
+  const [sortField, setSortField] = useState("title");
+  const [sortOrder, setSortOrder] = useState("asc");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -76,6 +78,24 @@ function App() {
   }, [search, category]);
 
 
+  // Sort models based on the selected field and order  
+  const sortedModels = [...models].sort((firstModel, secondModel) => {
+
+    const firstValue = firstModel[sortField] || "";
+    const secondValue = secondModel[sortField] || "";
+
+    if (firstValue < secondValue) {
+      return sortOrder === "asc" ? -1 : 1;
+    }
+
+    if (firstValue > secondValue) {
+      return sortOrder === "asc" ? 1 : -1;
+    }
+
+    return 0;
+  });
+
+
 
   return (
     <main className="page">
@@ -85,7 +105,7 @@ function App() {
         <h2>AI Models</h2>
 
         <div className="filters">
-        
+
           <label htmlFor="search">Search by title</label>
           <input
             id="search"
@@ -108,6 +128,28 @@ function App() {
               </option>
             ))}
           </select>
+
+          <label htmlFor="sortField">Sort by</label>
+
+          <select
+            id="sortField"
+            value={sortField}
+            onChange={(event) => setSortField(event.target.value)}
+          >
+            <option value="title">Title</option>
+            <option value="category">Category</option>
+          </select>
+
+
+          <label htmlFor="sortOrder">Order</label>
+          <select
+            id="sortOrder"
+            value={sortOrder}
+            onChange={(event) => setSortOrder(event.target.value)}
+          >
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
+          </select>
         </div>
 
         {isLoading && <p>Loading models...</p>}
@@ -115,7 +157,7 @@ function App() {
 
         {!isLoading && !error && (
           <ul className="model-list">
-            {models.map((model) => (
+            {sortedModels.map((model) => (
               <li key={model.id}>
                 <strong>{model.title}</strong> - {model.category}
               </li>

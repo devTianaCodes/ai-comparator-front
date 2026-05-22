@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+import "./App.css";
+
 
 
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-
-
 function App() {
+
   const [models, setModels] = useState([]);
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
@@ -15,9 +16,8 @@ function App() {
   const [error, setError] = useState("");
 
 
-// Fetch categories on initial load
-  useEffect(() => {
 
+  useEffect(() => {
     async function fetchCategories() {
       try {
         const response = await fetch(`${API_URL}/models`);
@@ -30,7 +30,6 @@ function App() {
         const modelCategories = data.map((model) => model.category);
         const uniqueCategories = [...new Set(modelCategories)].sort();
         setCategories(uniqueCategories);
-
       } catch (error) {
         setError(error.message);
       }
@@ -40,7 +39,7 @@ function App() {
   }, []);
 
 
-// Fetch models whenever search or category changes
+
   useEffect(() => {
     async function fetchModels() {
       setIsLoading(true);
@@ -78,42 +77,44 @@ function App() {
 
 
 
-  
   return (
-    <main>
+    <main className="page">
       <h1>AI Comparator</h1>
 
-      <section>
+      <section className="models-card">
         <h2>AI Models</h2>
 
-        <label htmlFor="search">Search by title</label>
-        <input
-          id="search"
-          type="search"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          placeholder="Search a model..."
-        />
+        <div className="filters">
+        
+          <label htmlFor="search">Search by title</label>
+          <input
+            id="search"
+            type="search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search a model..."
+          />
 
-        <label htmlFor="category">Filter by category</label>
-        <select
-          id="category"
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
-        >
-          <option value="">All categories</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
+          <label htmlFor="category">Filter by category</label>
+          <select
+            id="category"
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+          >
+            <option value="">All categories</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {isLoading && <p>Loading models...</p>}
         {error && <p>{error}</p>}
 
         {!isLoading && !error && (
-          <ul>
+          <ul className="model-list">
             {models.map((model) => (
               <li key={model.id}>
                 <strong>{model.title}</strong> - {model.category}

@@ -16,13 +16,17 @@ function App() {
   const [sortOrder, setSortOrder] = useState("asc");
   // State to track the selected model for details view
   const [selectedModelId, setSelectedModelId] = useState(null);
+  // State to hold the details of the selected model
+  const [selectedModel, setSelectedModel] = useState(null);
+  const [isDetailLoading, setIsDetailLoading] = useState(false);
+  const [detailError, setDetailError] = useState("");
   
   
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
 
-
+// Fetch categories on initial load
   useEffect(() => {
     async function fetchCategories() {
       try {
@@ -42,10 +46,10 @@ function App() {
     }
 
     fetchCategories();
-  }, []);
+  }, []); // Empty dependency: runs only once on initial load
 
 
-
+// Fetch models whenever the search term or selected category changes
   useEffect(() => {
     async function fetchModels() {
       setIsLoading(true);
@@ -79,7 +83,41 @@ function App() {
     }
 
     fetchModels();
-  }, [search, category]);
+  }, [search, category]); // Dependency array: runs whenever 'search' or 'category' changes
+
+
+
+  // Fetch details of the selected model whenever the selectedModelId changes
+  useEffect(() => {
+    if (!selectedModelId) {
+      return;
+    }
+    // Reset previous details and errors when a new model is selected
+    async function fetchSelectedModel() {
+      setIsDetailLoading(true);
+      setDetailError("");
+      setSelectedModel(null);
+
+      try {
+        const response = await fetch(`${API_URL}/models/${selectedModelId}`);
+
+        if (!response.ok) {
+          throw new Error("Unable to load model details.");
+        }
+
+        const data = await response.json();
+        setSelectedModel(data);
+      } catch (error) {
+        setDetailError(error.message);
+      } finally {
+        setIsDetailLoading(false);
+      }
+    }
+    // Call the function to fetch details of the selected model
+    fetchSelectedModel();
+  }, [selectedModelId]);// Dependency array: runs whenever 'selectedModelId' changes
+
+
 
 
   // Sort models based on the selected field and order  
@@ -95,7 +133,7 @@ function App() {
     if (firstValue > secondValue) {
       return sortOrder === "asc" ? 1 : -1;
     }
-
+// If values are equal, maintain their original order
     return 0;
   });
 
@@ -177,6 +215,14 @@ function App() {
               </li>
             ))}
           </ul>
+        )}
+        
+        {isDetailLoading && <p>Loading details...</p>}//
+        {detailError && <p>{detailError}</p>}
+        {selectedModel && !isDetailLoading && !detailError && (
+          <p>
+            Details loaded for <strong>{selectedModel.title}</strong>
+          </p>
         )}
       </section>
     </main>

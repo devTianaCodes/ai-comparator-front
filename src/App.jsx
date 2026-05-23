@@ -159,7 +159,11 @@ function App() {
           <ul className="model-list">
             {sortedModels.map((model) => (
               <li key={model.id}>
-                <strong>{model.title}</strong> - {model.category}
+                <span>
+                  <strong>{model.title}</strong> - {model.category}
+                </span>
+
+                <button type="button">Details</button>
               </li>
             ))}
           </ul>

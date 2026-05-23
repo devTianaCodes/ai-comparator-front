@@ -29,6 +29,16 @@ h2 {
   margin: 0 0 20px;
 }
 
+.details-link,
+.back-link {
+  padding: 8px 12px;
+  border: 1px solid #d7c8e6;
+  border-radius: 8px;
+  background: #e8def5;
+  color: #4b4655;
+  text-decoration: none;
+}
+
 .models-card {
   width: 100%;
   max-width: 600px;
@@ -81,16 +91,36 @@ select {
   color: #4b4655;
 }
 
-button {
-  padding: 8px 12px;
+.detail-card {
+  margin-top: 24px;
+  padding: 18px;
   border: 1px solid #d7c8e6;
   border-radius: 8px;
-  background: #e8def5;
-  color: #4b4655;
-  font: inherit;
-  cursor: pointer;
+  background: #fff7f1;
+  text-align: left;
 }
 
-.selected-button {
-  background: #d9eee8;
+.detail-card h2 {
+  text-align: center;
+}
+
+.detail-card dl {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+}
+
+.detail-card div {
+  padding: 10px;
+  border-radius: 8px;
+  background: #edf8f4;
+}
+
+.detail-card dt {
+  font-weight: 700;
+  color: #756c91;
+}
+
+.detail-card dd {
+  margin: 4px 0 0;
 }

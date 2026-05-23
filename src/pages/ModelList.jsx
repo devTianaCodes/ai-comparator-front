@@ -27,7 +27,7 @@ function ModelList() {
         const response = await fetch(`${API_URL}/models`);
 
         if (!response.ok) {
-          throw new Error("Unable to load categories.");
+          throw new Error("Impossibile caricare le categorie.");
         }
 
         const data = await response.json();
@@ -64,7 +64,7 @@ function ModelList() {
         const response = await fetch(url);
 
         if (!response.ok) {
-          throw new Error("Unable to load models.");
+          throw new Error("Impossibile caricare i modelli.");
         }
 
         const data = await response.json();
@@ -102,26 +102,26 @@ function ModelList() {
 
   return (
     <section className="models-card">
-      <h2>AI Models</h2>
+      <h2>Modelli AI</h2>
 
       <div className="filters">
 
-        <label htmlFor="search">Search by title</label>
+        <label htmlFor="search">Cerca per nome</label>
         <input
           id="search"
           type="search"
           value={search}
           onChange={(event) => setSearch(event.target.value)}
-          placeholder="Search a model..."
+          placeholder="Cerca un modello..."
         />
 
-        <label htmlFor="category">Filter by category</label>
+        <label htmlFor="category">Filtra per categoria</label>
         <select
           id="category"
           value={category}
           onChange={(event) => setCategory(event.target.value)}
         >
-          <option value="">All categories</option>
+          <option value="">Tutte le categorie</option>
           {categories.map((category) => (
             <option key={category} value={category}>
               {category}
@@ -129,19 +129,19 @@ function ModelList() {
           ))}
         </select>
 
-        <label htmlFor="sortField">Sort by</label>
+        <label htmlFor="sortField">Ordina per</label>
 
         <select
           id="sortField"
           value={sortField}
           onChange={(event) => setSortField(event.target.value)}
         >
-          <option value="title">Title</option>
-          <option value="category">Category</option>
+          <option value="title">Nome</option>
+          <option value="category">Categoria</option>
         </select>
 
 
-        <label htmlFor="sortOrder">Order</label>
+        <label htmlFor="sortOrder">Direzione</label>
         <select
           id="sortOrder"
           value={sortOrder}
@@ -152,7 +152,7 @@ function ModelList() {
         </select>
       </div>
 
-      {isLoading && <p>Loading models...</p>}
+      {isLoading && <p>Caricamento dei modelli...</p>}
       {error && <p>{error}</p>}
 
       {!isLoading && !error && (

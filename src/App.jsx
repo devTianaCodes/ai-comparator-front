@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <main className="page">
-        <h1>AI Comparator</h1>
+        <h1>Comparatore AI</h1>
 
         {/* Day 4: BrowserRouter handles the list page and the real detail page. */}
         <Routes>

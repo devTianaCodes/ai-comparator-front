@@ -27,7 +27,7 @@ function ModelDetail() {
         const response = await fetch(`${API_URL}/models/${id}`);
 
         if (!response.ok) {
-          throw new Error("Unable to load model details.");
+          throw new Error("Impossibile caricare i dettagli del modello.");
         }
 
         const data = await response.json();
@@ -47,10 +47,10 @@ function ModelDetail() {
   return (
     <section className="models-card">
       <Link className="back-link" to="/">
-        Back to list
+        Torna alla lista
       </Link>
 
-      {isDetailLoading && <p>Loading details...</p>}
+      {isDetailLoading && <p>Caricamento dei dettagli...</p>}
       {detailError && <p>{detailError}</p>}
 
       {selectedModel && !isDetailLoading && !detailError && (
@@ -61,42 +61,42 @@ function ModelDetail() {
 
           <dl>
             <div>
-              <dt>Category</dt>
+              <dt>Categoria</dt>
               <dd>{selectedModel.category}</dd>
             </div>
 
             <div>
-              <dt>Provider</dt>
+              <dt>Fornitore</dt>
               <dd>{selectedModel.provider}</dd>
             </div>
 
             <div>
-              <dt>Release year</dt>
+              <dt>Anno di rilascio</dt>
               <dd>{selectedModel.releaseYear}</dd>
             </div>
 
             <div>
-              <dt>Modality</dt>
+              <dt>Modalità</dt>
               <dd>{selectedModel.modality}</dd>
             </div>
 
             <div>
-              <dt>Context window</dt>
+              <dt>Finestra di contesto</dt>
               <dd>{selectedModel.contextWindow}</dd>
             </div>
 
             <div>
-              <dt>Pricing tier</dt>
+              <dt>Fascia di prezzo</dt>
               <dd>{selectedModel.pricingTier}</dd>
             </div>
 
             <div>
-              <dt>Intelligence index</dt>
+              <dt>Indice di intelligenza</dt>
               <dd>{selectedModel.intelligenceIndex}</dd>
             </div>
 
             <div>
-              <dt>Strengths</dt>
+              <dt>Punti di forza</dt>
               <dd>{selectedModel.strengths}</dd>
             </div>
           </dl>

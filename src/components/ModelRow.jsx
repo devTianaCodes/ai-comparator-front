@@ -9,7 +9,7 @@ function ModelRow({ model }) {
       </span>
 
       <Link className="details-link" to={`/models/${model.id}`}>
-        Details
+        Dettagli
       </Link>
     </li>
   );

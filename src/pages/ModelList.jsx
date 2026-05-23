@@ -102,7 +102,7 @@ function ModelList() {
 
   return (
     <section className="models-card">
-      <h2>Modelli AI</h2>
+      <h2>Modelli IA</h2>
 
       <div className="filters">
 

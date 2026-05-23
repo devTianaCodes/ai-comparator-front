@@ -14,6 +14,10 @@ function App() {
   const [category, setCategory] = useState("");
   const [sortField, setSortField] = useState("title");
   const [sortOrder, setSortOrder] = useState("asc");
+  // State to track the selected model for details view
+  const [selectedModelId, setSelectedModelId] = useState(null);
+  
+  
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -163,7 +167,13 @@ function App() {
                   <strong>{model.title}</strong> - {model.category}
                 </span>
 
-                <button type="button">Details</button>
+                <button
+                  type="button"
+                  className={selectedModelId === model.id ? "selected-button" : ""}
+                  onClick={() => setSelectedModelId(model.id)}
+                >
+                  {selectedModelId === model.id ? "Selected" : "Details"}
+                </button>
               </li>
             ))}
           </ul>

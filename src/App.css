@@ -90,3 +90,7 @@ button {
   font: inherit;
   cursor: pointer;
 }
+
+.selected-button {
+  background: #d9eee8;
+}

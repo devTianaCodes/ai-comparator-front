@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 
 
@@ -19,6 +19,7 @@ const compareFields = [
 
 function ModelCompare() {
 
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const selectedModelIdsText = searchParams.get("ids") || "";
   const selectedModelIds = selectedModelIdsText.split(",").filter(Boolean);
@@ -69,6 +70,11 @@ function ModelCompare() {
   }, [selectedModelIdsText]);
 
 
+  function resetComparedModels() {
+    navigate("/");
+  }
+
+
 
   return (
     <section className="models-card compare-card">
@@ -77,6 +83,14 @@ function ModelCompare() {
       </Link>
 
       <h2>Comparazione modelli</h2>
+
+      <button
+        className="reset-button"
+        type="button"
+        onClick={resetComparedModels}
+      >
+        Azzera comparazione
+      </button>
 
       {!hasTwoSelectedModels && (
         <p>Seleziona due modelli dalla lista per avviare la comparazione.</p>

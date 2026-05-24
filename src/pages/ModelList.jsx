@@ -114,7 +114,12 @@ function ModelList() {
     }
   }
 
+// Resetta la selezione dei modelli per il confronto
+  function resetCompareModels() {
+    setCompareModelIds([]);
+  }
 
+// Costruisce il link per la pagina di comparazione con gli ID dei modelli selezionati
   const compareLink = `/compare?ids=${compareModelIds.join(",")}`;
 
 
@@ -191,6 +196,17 @@ function ModelList() {
         <p className="compare-counter">
           Modelli selezionati per il confronto: {compareModelIds.length}/2
         </p>
+      )}
+
+      {!isLoading && !error && compareModelIds.length > 0 && (
+        
+        <button
+          className="reset-button"
+          type="button"
+          onClick={resetCompareModels}
+        >
+          Azzera selezione
+        </button>
       )}
 
       {!isLoading && !error && compareModelIds.length === 2 && (

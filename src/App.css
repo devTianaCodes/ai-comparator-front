@@ -32,7 +32,8 @@ h2 {
 .details-link,
 .back-link,
 .compare-button,
-.compare-link {
+.compare-link,
+.reset-button {
   padding: 8px 12px;
   border: 1px solid #d7c8e6;
   border-radius: 8px;
@@ -40,6 +41,11 @@ h2 {
   color: #4b4655;
   font: inherit;
   text-decoration: none;
+}
+
+.reset-button {
+  margin-top: 14px;
+  cursor: pointer;
 }
 
 .compare-link {
@@ -50,7 +56,7 @@ h2 {
 .compare-button {
   cursor: pointer;
 }
-
+/* Stile per il pulsante Compara quando è disabilitato */
 .compare-button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
@@ -82,6 +88,7 @@ label {
   color: #756c91;
 }
 
+/* Stili per input e select nei filtri */
 input,
 select {
   width: 100%;
@@ -101,6 +108,7 @@ select {
   list-style: none;
 }
 
+/* Stili per gli elementi della lista dei modelli */
 .model-list li {
   display: flex;
   align-items: center;

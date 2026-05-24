@@ -14,6 +14,7 @@ function ModelList() {
   const [category, setCategory] = useState("");
   const [sortField, setSortField] = useState("title");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [compareModelIds, setCompareModelIds] = useState([]);
   
   
   const [isLoading, setIsLoading] = useState(true);
@@ -100,6 +101,20 @@ function ModelList() {
 
 
 
+  function toggleCompareModel(modelId) {
+    if (compareModelIds.includes(modelId)) {
+      const updatedModelIds = compareModelIds.filter((id) => id !== modelId);
+      setCompareModelIds(updatedModelIds);
+      return;
+    }
+
+    if (compareModelIds.length < 2) {
+      setCompareModelIds([...compareModelIds, modelId]);
+    }
+  }
+
+
+
   return (
     <section className="models-card">
       <h2>Modelli IA</h2>
@@ -158,9 +173,21 @@ function ModelList() {
       {!isLoading && !error && (
         <ul className="model-list">
           {sortedModels.map((model) => (
-            <ModelRow key={model.id} model={model} />
+            <ModelRow
+              key={model.id}
+              model={model}
+              isSelectedForCompare={compareModelIds.includes(model.id)}
+              isCompareLimitReached={compareModelIds.length === 2}
+              onToggleCompare={toggleCompareModel}
+            />
           ))}
         </ul>
+      )}
+
+      {!isLoading && !error && (
+        <p className="compare-counter">
+          Modelli selezionati per il confronto: {compareModelIds.length}/2
+        </p>
       )}
     </section>
   );

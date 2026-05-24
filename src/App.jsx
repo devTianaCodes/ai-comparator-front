@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ModelCompare from "./pages/ModelCompare";
 import ModelDetail from "./pages/ModelDetail";
 import ModelList from "./pages/ModelList";
 import "./App.css";
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ModelList />} />
           <Route path="/models/:id" element={<ModelDetail />} />
+          <Route path="/compare" element={<ModelCompare />} />
         </Routes>
       </main>
     </BrowserRouter>

@@ -31,7 +31,8 @@ h2 {
 
 .details-link,
 .back-link,
-.compare-button {
+.compare-button,
+.compare-link {
   padding: 8px 12px;
   border: 1px solid #d7c8e6;
   border-radius: 8px;
@@ -39,6 +40,11 @@ h2 {
   color: #4b4655;
   font: inherit;
   text-decoration: none;
+}
+
+.compare-link {
+  display: inline-block;
+  margin-top: 14px;
 }
 
 .compare-button {
@@ -57,6 +63,10 @@ h2 {
   border: 2px solid #f3d7c8;
   border-radius: 12px;
   background: #fff1e8;
+}
+
+.compare-card {
+  max-width: 900px;
 }
 
 .filters {
@@ -145,4 +155,21 @@ select {
   margin: 18px 0 0;
   color: #756c91;
   font-weight: 700;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.compare-model-card h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
 }

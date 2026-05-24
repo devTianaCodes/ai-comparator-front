@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ModelRow from "../components/ModelRow";
 
 
@@ -114,6 +115,8 @@ function ModelList() {
   }
 
 
+  const compareLink = `/compare?ids=${compareModelIds.join(",")}`;
+
 
   return (
     <section className="models-card">
@@ -188,6 +191,12 @@ function ModelList() {
         <p className="compare-counter">
           Modelli selezionati per il confronto: {compareModelIds.length}/2
         </p>
+      )}
+
+      {!isLoading && !error && compareModelIds.length === 2 && (
+        <Link className="compare-link" to={compareLink}>
+          Vai alla comparazione
+        </Link>
       )}
     </section>
   );

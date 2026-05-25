@@ -107,56 +107,39 @@ h2 {
 
 .models-card {
   width: 100%;
-  max-width: 600px;
+  max-width: 1000px;
   padding: 24px;
   border: 2px solid #f3d7c8;
   border-radius: 12px;
   background: #fff1e8;
 }
 
-.favorites-panel {
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 18px;
-  padding: 16px;
-  border: 2px solid #d7c8e6;
-  border-radius: 12px;
-  background: #fff7f1;
-}
-
-.favorites-panel h2 {
-  margin-bottom: 12px;
-}
-
-.favorites-panel ul {
-  display: grid;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.favorites-panel li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.favorites-panel a {
-  color: #4b4655;
-}
-
 .compare-card {
   max-width: 900px;
+}
+
+.homepage-layout {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  gap: 18px;
+  align-items: start;
 }
 
 .filters {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 24px;
+  padding: 18px;
+  border-radius: 8px;
+  background: #fff7f1;
   text-align: left;
+}
+
+.models-list-container {
+  min-width: 0;
+  padding: 18px;
+  border-radius: 8px;
+  background: #fff7f1;
 }
 
 label {
@@ -253,6 +236,10 @@ select {
 }
 
 @media (max-width: 700px) {
+  .homepage-layout {
+    grid-template-columns: 1fr;
+  }
+
   .compare-grid {
     grid-template-columns: 1fr;
   }

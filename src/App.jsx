@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import FavoritesPanel from "./components/FavoritesPanel";
+import FavoritesPage from "./pages/FavoritesPage";
 import ModelCompare from "./pages/ModelCompare";
 import ModelDetail from "./pages/ModelDetail";
 import ModelList from "./pages/ModelList";
@@ -59,6 +60,13 @@ function App() {
             
           <Route path="/models/:id" element={
               <ModelDetail
+                favoriteModelIds={favoriteModelIds}
+                onToggleFavorite={toggleFavoriteModel}
+              />
+            }
+          />
+          <Route path="/favorites" element={
+              <FavoritesPage
                 favoriteModelIds={favoriteModelIds}
                 onToggleFavorite={toggleFavoriteModel}
               />

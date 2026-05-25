@@ -142,6 +142,12 @@ h2 {
   background: #fff7f1;
 }
 
+.compare-section {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #ddd0e6;
+}
+
 label {
   font-weight: 700;
   color: #756c91;
@@ -268,7 +274,7 @@ select {
 }
 
 .compare-counter {
-  margin: 18px 0 0;
+  margin: 0;
   color: #756c91;
   font-weight: 700;
 }

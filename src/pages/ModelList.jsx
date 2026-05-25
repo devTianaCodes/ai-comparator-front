@@ -192,6 +192,31 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
             <option value="asc">A-Z</option>
             <option value="desc">Z-A</option>
           </select>
+
+          {!isLoading && !error && (
+            <div className="compare-section">
+              <p className="compare-counter">
+                Modelli selezionati per il confronto: {compareModelIds.length}/2
+              </p>
+
+              {compareModelIds.length > 0 && (
+
+                <button
+                  className="reset-button"
+                  type="button"
+                  onClick={resetCompareModels}
+                >
+                  Azzera selezione
+                </button>
+              )}
+
+              {compareModelIds.length === 2 && (
+                <Link className="compare-link" to={compareLink}>
+                  Vai alla comparazione
+                </Link>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="models-list-container">
@@ -212,29 +237,6 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
                 />
               ))}
             </ul>
-          )}
-
-          {!isLoading && !error && (
-            <p className="compare-counter">
-              Modelli selezionati per il confronto: {compareModelIds.length}/2
-            </p>
-          )}
-
-          {!isLoading && !error && compareModelIds.length > 0 && (
-            
-            <button
-              className="reset-button"
-              type="button"
-              onClick={resetCompareModels}
-            >
-              Azzera selezione
-            </button>
-          )}
-
-          {!isLoading && !error && compareModelIds.length === 2 && (
-            <Link className="compare-link" to={compareLink}>
-              Vai alla comparazione
-            </Link>
           )}
         </div>
       </div>

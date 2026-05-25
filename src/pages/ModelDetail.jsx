@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-function ModelDetail() {
+function ModelDetail({ favoriteModelIds, onToggleFavorite }) {
 
   const { id } = useParams();
 
@@ -56,6 +56,16 @@ function ModelDetail() {
       {selectedModel && !isDetailLoading && !detailError && (
         <article className="detail-card">
           <h2>{selectedModel.title}</h2>
+
+          <button
+            className="favorite-button"
+            type="button"
+            title={favoriteModelIds.includes(selectedModel.id) ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+            aria-label={favoriteModelIds.includes(selectedModel.id) ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+            onClick={() => onToggleFavorite(selectedModel.id)}
+          >
+            {favoriteModelIds.includes(selectedModel.id) ? "♥" : "♡"}
+          </button>
 
           <p>{selectedModel.description}</p>
 

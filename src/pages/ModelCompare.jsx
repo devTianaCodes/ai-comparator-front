@@ -120,7 +120,7 @@ function ModelCompare() {
               type="button"
               onClick={resetComparedModels}
             >
-              Azzera comparazione
+              Annulla comparazione
             </button>
           </div>
         </>

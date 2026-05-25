@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import FavoritesPanel from "./components/FavoritesPanel";
 import ModelCompare from "./pages/ModelCompare";
 import ModelDetail from "./pages/ModelDetail";
 import ModelList from "./pages/ModelList";
@@ -26,6 +27,11 @@ function App() {
     <BrowserRouter>
       <main className="page">
         <h1>Comparatore IA</h1>
+
+        <FavoritesPanel
+          favoriteModelIds={favoriteModelIds}
+          onToggleFavorite={toggleFavoriteModel}
+        />
 
         {/* Day 4: BrowserRouter handles the list page and the real detail page. */}
         <Routes>

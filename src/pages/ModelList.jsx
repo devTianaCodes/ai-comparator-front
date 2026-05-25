@@ -203,7 +203,7 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
 
               {compareModelIds.length === 2 && (
                 <Link className="compare-link" to={compareLink}>
-                  Vai alla comparazione
+                  <span className="compare-icon">⚖</span> Vai alla comparazione
                 </Link>
               )}
 

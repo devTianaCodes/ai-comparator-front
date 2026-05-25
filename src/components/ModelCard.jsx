@@ -39,7 +39,7 @@ function ModelCard({
       <div className="model-actions">
         {hasCompareButton && (
           <button
-            className="compare-button"
+            className={isSelectedForCompare ? "compare-button selected-compare-button" : "compare-button"}
             type="button"
             disabled={isCompareButtonDisabled}
             onClick={() => onToggleCompare(model.id)}

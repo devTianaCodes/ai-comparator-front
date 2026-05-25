@@ -57,7 +57,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 16px;
+  padding: 32px;
   text-align: center;
 }
 
@@ -99,10 +99,14 @@ h2 {
   cursor: pointer;
 }
 
+.selected-compare-button {
+  background: #fff1e8;
+}
+
 .favorite-button {
   width: 40px;
   padding: 8px 0;
-  color: #c84d6b;
+  color: #cf6f7c;
   cursor: pointer;
   font-size: 20px;
   line-height: 1;
@@ -115,7 +119,6 @@ h2 {
 
 .models-card {
   width: 100%;
-  max-width: 1000px;
   padding: 24px;
   border: 2px solid #f3d7c8;
   border-radius: 12px;
@@ -128,7 +131,7 @@ h2 {
 
 .homepage-layout {
   display: grid;
-  grid-template-columns: 3fr 7fr;
+  grid-template-columns: 1fr 4fr;
   gap: 18px;
   align-items: start;
 }
@@ -162,19 +165,25 @@ h2 {
 }
 
 .compare-section .compare-link {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: fit-content;
   margin-right: auto;
   margin-left: auto;
+}
+
+.compare-icon {
+  font-size: 1.5em;
 }
 
 .cancel-selection-button {
   display: block;
   margin-right: auto;
   margin-left: auto;
-  border-color: #e3a2a2;
+  border-color: #e8c1c1;
   background: #ffe8e8;
-  color: #b73636;
+  color: #2f2a2a;
 }
 
 label {
@@ -206,6 +215,11 @@ select {
 .model-card-list {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+}
+
+.favorites-list {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
+  justify-content: center;
 }
 
 .model-list .model-card {
@@ -403,5 +417,11 @@ select {
 
   .model-card-list {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .model-card-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }

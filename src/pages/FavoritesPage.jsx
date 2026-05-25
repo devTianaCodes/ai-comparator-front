@@ -73,7 +73,7 @@ function FavoritesPage({ favoriteModelIds, onToggleFavorite }) {
       )}
 
       {!isLoading && !error && favoriteModels.length > 0 && (
-        <ul className="model-list model-card-list">
+        <ul className="model-list model-card-list favorites-list">
           {favoriteModels.map((model) => (
             <ModelCard
               key={model.id}

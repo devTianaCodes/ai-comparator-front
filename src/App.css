@@ -31,6 +31,7 @@ h2 {
 
 .details-link,
 .back-link,
+.favorite-button,
 .compare-button,
 .compare-link,
 .reset-button {
@@ -55,6 +56,15 @@ h2 {
 
 .compare-button {
   cursor: pointer;
+}
+
+.favorite-button {
+  width: 40px;
+  padding: 8px 0;
+  color: #c84d6b;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
 }
 /* Stile per il pulsante Compara quando è disabilitato */
 .compare-button:disabled {

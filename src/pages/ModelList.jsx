@@ -7,7 +7,7 @@ import ModelRow from "../components/ModelRow";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-function ModelList() {
+function ModelList({ favoriteModelIds, onToggleFavorite }) {
 
   const [models, setModels] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -184,6 +184,8 @@ function ModelList() {
             <ModelRow
               key={model.id}
               model={model}
+              isFavorite={favoriteModelIds.includes(model.id)}
+              onToggleFavorite={onToggleFavorite}
               isSelectedForCompare={compareModelIds.includes(model.id)}
               isCompareLimitReached={compareModelIds.length === 2}
               onToggleCompare={toggleCompareModel}

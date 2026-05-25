@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 function ModelRow({
   model,
+  isFavorite,
+  onToggleFavorite,
   isSelectedForCompare,
   isCompareLimitReached,
   onToggleCompare,
@@ -17,6 +19,16 @@ function ModelRow({
       </span>
 
       <div className="model-actions">
+        <button
+          className="favorite-button"
+          type="button"
+          title={isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+          aria-label={isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+          onClick={() => onToggleFavorite(model.id)}
+        >
+          {isFavorite ? "♥" : "♡"}
+        </button>
+
         <button
           className="compare-button"
           type="button"

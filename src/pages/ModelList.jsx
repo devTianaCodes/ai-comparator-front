@@ -127,95 +127,99 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
     <section className="models-card">
       <h2>Modelli IA</h2>
 
-      <div className="filters">
+      <div className="homepage-layout">
+        <div className="filters">
 
-        <label htmlFor="search">Cerca per nome</label>
-        <input
-          id="search"
-          type="search"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          placeholder="Cerca un modello..."
-        />
+          <label htmlFor="search">Cerca per nome</label>
+          <input
+            id="search"
+            type="search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Cerca un modello..."
+          />
 
-        <label htmlFor="category">Filtra per categoria</label>
-        <select
-          id="category"
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
-        >
-          <option value="">Tutte le categorie</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
+          <label htmlFor="category">Filtra per categoria</label>
+          <select
+            id="category"
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+          >
+            <option value="">Tutte le categorie</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
 
-        <label htmlFor="sortField">Ordina per</label>
+          <label htmlFor="sortField">Ordina per</label>
 
-        <select
-          id="sortField"
-          value={sortField}
-          onChange={(event) => setSortField(event.target.value)}
-        >
-          <option value="title">Nome</option>
-          <option value="category">Categoria</option>
-        </select>
+          <select
+            id="sortField"
+            value={sortField}
+            onChange={(event) => setSortField(event.target.value)}
+          >
+            <option value="title">Nome</option>
+            <option value="category">Categoria</option>
+          </select>
 
 
-        <label htmlFor="sortOrder">Direzione</label>
-        <select
-          id="sortOrder"
-          value={sortOrder}
-          onChange={(event) => setSortOrder(event.target.value)}
-        >
-          <option value="asc">A-Z</option>
-          <option value="desc">Z-A</option>
-        </select>
+          <label htmlFor="sortOrder">Direzione</label>
+          <select
+            id="sortOrder"
+            value={sortOrder}
+            onChange={(event) => setSortOrder(event.target.value)}
+          >
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
+          </select>
+        </div>
+
+        <div className="models-list-container">
+          {isLoading && <p>Caricamento dei modelli...</p>}
+          {error && <p>{error}</p>}
+
+          {!isLoading && !error && (
+            <ul className="model-list">
+              {sortedModels.map((model) => (
+                <ModelRow
+                  key={model.id}
+                  model={model}
+                  isFavorite={favoriteModelIds.includes(model.id)}
+                  onToggleFavorite={onToggleFavorite}
+                  isSelectedForCompare={compareModelIds.includes(model.id)}
+                  isCompareLimitReached={compareModelIds.length === 2}
+                  onToggleCompare={toggleCompareModel}
+                />
+              ))}
+            </ul>
+          )}
+
+          {!isLoading && !error && (
+            <p className="compare-counter">
+              Modelli selezionati per il confronto: {compareModelIds.length}/2
+            </p>
+          )}
+
+          {!isLoading && !error && compareModelIds.length > 0 && (
+            
+            <button
+              className="reset-button"
+              type="button"
+              onClick={resetCompareModels}
+            >
+              Azzera selezione
+            </button>
+          )}
+
+          {!isLoading && !error && compareModelIds.length === 2 && (
+            <Link className="compare-link" to={compareLink}>
+              Vai alla comparazione
+            </Link>
+          )}
+        </div>
       </div>
-
-      {isLoading && <p>Caricamento dei modelli...</p>}
-      {error && <p>{error}</p>}
-
-      {!isLoading && !error && (
-        <ul className="model-list">
-          {sortedModels.map((model) => (
-            <ModelRow
-              key={model.id}
-              model={model}
-              isFavorite={favoriteModelIds.includes(model.id)}
-              onToggleFavorite={onToggleFavorite}
-              isSelectedForCompare={compareModelIds.includes(model.id)}
-              isCompareLimitReached={compareModelIds.length === 2}
-              onToggleCompare={toggleCompareModel}
-            />
-          ))}
-        </ul>
-      )}
-
-      {!isLoading && !error && (
-        <p className="compare-counter">
-          Modelli selezionati per il confronto: {compareModelIds.length}/2
-        </p>
-      )}
-
-      {!isLoading && !error && compareModelIds.length > 0 && (
-        
-        <button
-          className="reset-button"
-          type="button"
-          onClick={resetCompareModels}
-        >
-          Azzera selezione
-        </button>
-      )}
-
-      {!isLoading && !error && compareModelIds.length === 2 && (
-        <Link className="compare-link" to={compareLink}>
-          Vai alla comparazione
-        </Link>
-      )}
     </section>
   );
 }

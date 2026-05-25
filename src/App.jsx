@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
-import FavoritesPanel from "./components/FavoritesPanel";
 import FavoritesPage from "./pages/FavoritesPage";
 import ModelCompare from "./pages/ModelCompare";
 import ModelDetail from "./pages/ModelDetail";
@@ -41,11 +40,6 @@ function App() {
       </header>
 
       <main className="page">
-
-        <FavoritesPanel
-          favoriteModelIds={favoriteModelIds}
-          onToggleFavorite={toggleFavoriteModel}
-        />
 
         {/* Day 4: BrowserRouter handles the list page and the real detail page. */}
         <Routes>

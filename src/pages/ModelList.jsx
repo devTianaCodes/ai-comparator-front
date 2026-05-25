@@ -195,8 +195,10 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
 
           {!isLoading && !error && (
             <div className="compare-section">
+              <h3>Compara</h3>
+
               <p className="compare-counter">
-                Modelli selezionati per il confronto: {compareModelIds.length}/2
+                Seleziona due modelli per confronto: {compareModelIds.length}/2
               </p>
 
               {compareModelIds.length > 0 && (

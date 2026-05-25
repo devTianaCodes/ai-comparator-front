@@ -26,13 +26,15 @@ function App() {
   return (
     <BrowserRouter>
       <header className="app-header">
-        <h1>Comparatore IA</h1>
-
-        <nav>
+        <nav className="header-nav-left">
           <NavLink to="/">
             Modelli
           </NavLink>
+        </nav>
 
+        <h1>Comparatore IA</h1>
+
+        <nav className="header-nav-right">
           <NavLink to="/favorites">
             Preferiti
           </NavLink>

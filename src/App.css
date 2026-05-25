@@ -11,10 +11,10 @@ body {
 }
 
 .app-header {
-  display: flex;
+  display: grid;
   width: 100%;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 20px;
   padding: 18px 32px;
   border-bottom: 2px solid #d7c8e6;
@@ -28,6 +28,14 @@ body {
 .app-header nav {
   display: flex;
   gap: 12px;
+}
+
+.header-nav-left {
+  justify-content: flex-start;
+}
+
+.header-nav-right {
+  justify-content: flex-end;
 }
 
 .app-header a {
@@ -146,6 +154,11 @@ h2 {
   margin-top: 8px;
   padding-top: 12px;
   border-top: 1px solid #ddd0e6;
+}
+
+.compare-section h3 {
+  margin: 0 0 8px;
+  color: #756c91;
 }
 
 label {

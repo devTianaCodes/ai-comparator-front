@@ -131,7 +131,7 @@ h2 {
 
 .homepage-layout {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 250px minmax(0, 1fr);
   gap: 18px;
   align-items: start;
 }
@@ -213,7 +213,7 @@ select {
 
 /* Stili per gli elementi della lista dei modelli */
 .model-card-list {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(230px, 1fr));
   gap: 16px;
 }
 
@@ -277,9 +277,15 @@ select {
 
 .model-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   justify-content: flex-end;
   margin-top: 16px;
+}
+
+.model-card .compare-button,
+.model-card .details-link {
+  white-space: nowrap;
 }
 
 .model-card .model-actions {
@@ -382,6 +388,15 @@ select {
   padding-bottom: 26px;
 }
 
+.compare-model-image {
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  aspect-ratio: 1;
+  margin: 0 auto 18px;
+  object-fit: contain;
+}
+
 .compare-model-card h3 {
   margin: 0 0 10px;
   text-align: center;
@@ -420,8 +435,26 @@ select {
   }
 }
 
-@media (min-width: 1200px) {
-  .model-card-list {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+@media (min-width: 701px) and (max-width: 899px) {
+  .homepage-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1600px) {
+  .model-card-list:not(.favorites-list) {
+    grid-template-columns: repeat(5, minmax(230px, 1fr));
+  }
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .model-card-list:not(.favorites-list) {
+    grid-template-columns: repeat(4, minmax(230px, 1fr));
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1399px) {
+  .model-card-list:not(.favorites-list) {
+    grid-template-columns: repeat(3, minmax(230px, 1fr));
   }
 }

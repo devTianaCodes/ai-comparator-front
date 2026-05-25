@@ -92,6 +92,12 @@ function ModelCompare() {
           <div className="compare-grid">
             {comparedModels.map((model) => (
               <article className="detail-card compare-model-card" key={model.id}>
+                <img
+                  className="compare-model-image"
+                  src={model.image}
+                  alt={`Logo ${model.title}`}
+                />
+
                 <h3>{model.title}</h3>
 
                 <p>{model.description}</p>

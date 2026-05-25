@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import FavoritesPanel from "./components/FavoritesPanel";
 import ModelCompare from "./pages/ModelCompare";
 import ModelDetail from "./pages/ModelDetail";
@@ -25,8 +25,21 @@ function App() {
 
   return (
     <BrowserRouter>
-      <main className="page">
+      <header className="app-header">
         <h1>Comparatore IA</h1>
+
+        <nav>
+          <NavLink to="/">
+            Modelli
+          </NavLink>
+
+          <NavLink to="/favorites">
+            Preferiti
+          </NavLink>
+        </nav>
+      </header>
+
+      <main className="page">
 
         <FavoritesPanel
           favoriteModelIds={favoriteModelIds}

@@ -10,9 +10,42 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.app-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 32px;
+  border-bottom: 2px solid #d7c8e6;
+  background: #fff7f1;
+}
+
+.app-header h1 {
+  margin: 0;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 12px;
+}
+
+.app-header a {
+  padding: 8px 12px;
+  border: 1px solid #d7c8e6;
+  border-radius: 8px;
+  background: #e8def5;
+  color: #4b4655;
+  text-decoration: none;
+}
+
+.app-header a.active {
+  background: #f8dfe7;
+}
+
 .page {
   display: flex;
-  min-height: 100vh;
+  min-height: calc(100vh - 82px);
   flex-direction: column;
   align-items: center;
   justify-content: center;

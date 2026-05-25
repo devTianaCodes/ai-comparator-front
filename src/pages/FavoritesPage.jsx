@@ -45,8 +45,8 @@ function FavoritesPage({ favoriteModelIds, onToggleFavorite }) {
         );
 
         setModels(modelsWithImages);
-      } catch (error) {
-        setError(error.message);
+      } catch {
+        setError("Impossibile caricare i preferiti.");
       } finally {
         setIsLoading(false);
       }

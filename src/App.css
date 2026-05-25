@@ -161,6 +161,22 @@ h2 {
   color: #756c91;
 }
 
+.compare-section .compare-link {
+  display: block;
+  width: fit-content;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.cancel-selection-button {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  border-color: #e3a2a2;
+  background: #ffe8e8;
+  color: #b73636;
+}
+
 label {
   font-weight: 700;
   color: #756c91;
@@ -259,7 +275,6 @@ select {
 .detail-card {
   margin-top: 24px;
   padding: 18px;
-  border: 1px solid #d7c8e6;
   border-radius: 8px;
   background: #fff7f1;
   text-align: left;
@@ -319,6 +334,11 @@ select {
   margin: 4px 0 0;
 }
 
+.detail-back-container {
+  margin-top: 18px;
+  text-align: center;
+}
+
 .compare-counter {
   margin: 0;
   color: #756c91;
@@ -354,6 +374,21 @@ select {
 }
 
 @media (max-width: 700px) {
+  .app-header {
+    gap: 8px;
+    padding: 14px 12px;
+  }
+
+  .app-header h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .app-header a {
+    padding: 7px 8px;
+    font-size: 14px;
+  }
+
   .homepage-layout {
     grid-template-columns: 1fr;
   }

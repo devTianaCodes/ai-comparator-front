@@ -59,8 +59,8 @@ function ModelCompare() {
 
         const models = data.map((item) => item.model);
         setComparedModels(models);
-      } catch (error) {
-        setCompareError(error.message);
+      } catch {
+        setCompareError("Impossibile caricare la comparazione.");
       } finally {
         setIsCompareLoading(false);
       }

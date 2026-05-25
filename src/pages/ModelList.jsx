@@ -36,8 +36,8 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
         const modelCategories = data.map((model) => model.category);
         const uniqueCategories = [...new Set(modelCategories)].sort();
         setCategories(uniqueCategories);
-      } catch (error) {
-        setError(error.message);
+      } catch {
+        setError("Impossibile caricare le categorie.");
       }
     }
 
@@ -89,8 +89,8 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
         );
 
         setModels(modelsWithImages);
-      } catch (error) {
-        setError(error.message);
+      } catch {
+        setError("Impossibile caricare i modelli.");
       } finally {
         setIsLoading(false);
       }
@@ -201,21 +201,21 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
                 Seleziona due modelli per confronto: {compareModelIds.length}/2
               </p>
 
-              {compareModelIds.length > 0 && (
-
-                <button
-                  className="reset-button"
-                  type="button"
-                  onClick={resetCompareModels}
-                >
-                  Azzera selezione
-                </button>
-              )}
-
               {compareModelIds.length === 2 && (
                 <Link className="compare-link" to={compareLink}>
                   Vai alla comparazione
                 </Link>
+              )}
+
+              {compareModelIds.length > 0 && (
+
+                <button
+                  className="reset-button cancel-selection-button"
+                  type="button"
+                  onClick={resetCompareModels}
+                >
+                  🗑 Annulla selezione
+                </button>
               )}
             </div>
           )}

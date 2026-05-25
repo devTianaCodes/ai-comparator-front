@@ -192,15 +192,19 @@ select {
   color: #4b4655;
 }
 
-.model-card-favorite {
-  position: absolute;
-  top: 12px;
-  right: 12px;
+.model-card-favorite,
+.detail-favorite-button {
   width: auto;
   padding: 0;
   border: 0;
   background: transparent;
   font-size: 28px;
+}
+
+.model-card-favorite {
+  position: absolute;
+  top: 12px;
+  right: 12px;
 }
 
 .model-card-image {
@@ -248,7 +252,36 @@ select {
   text-align: left;
 }
 
+.detail-card-layout {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.detail-image-column {
+  width: 100%;
+}
+
+.detail-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 24px;
+  border-radius: 8px;
+  background: #f8dfe7;
+  object-fit: contain;
+}
+
+.detail-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .detail-card h2 {
+  margin-bottom: 0;
   text-align: center;
 }
 
@@ -258,7 +291,7 @@ select {
   margin: 16px 0 0;
 }
 
-.detail-card div {
+.detail-card dl div {
   padding: 10px;
   border-radius: 8px;
   background: #edf8f4;
@@ -282,11 +315,28 @@ select {
 .compare-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 22px;
+}
+
+.compare-reset-container {
+  margin-top: 28px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.compare-reset-button {
+  margin-top: 0;
+  padding: 12px 18px;
+}
+
+.compare-model-card {
+  min-height: 520px;
+  padding-top: 26px;
+  padding-bottom: 26px;
 }
 
 .compare-model-card h3 {
-  margin-top: 0;
+  margin: 0 0 10px;
   text-align: center;
 }
 
@@ -296,6 +346,10 @@ select {
   }
 
   .compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-card-layout {
     grid-template-columns: 1fr;
   }
 

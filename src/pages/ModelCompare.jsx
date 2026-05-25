@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 
 
@@ -78,19 +78,7 @@ function ModelCompare() {
 
   return (
     <section className="models-card compare-card">
-      <Link className="back-link" to="/">
-        Torna alla lista
-      </Link>
-
       <h2>Comparazione modelli</h2>
-
-      <button
-        className="reset-button"
-        type="button"
-        onClick={resetComparedModels}
-      >
-        Azzera comparazione
-      </button>
 
       {!hasTwoSelectedModels && (
         <p>Seleziona due modelli dalla lista per avviare la comparazione.</p>
@@ -100,24 +88,36 @@ function ModelCompare() {
       {compareError && <p>{compareError}</p>}
 
       {comparedModels.length === 2 && !isCompareLoading && !compareError && (
-        <div className="compare-grid">
-          {comparedModels.map((model) => (
-            <article className="detail-card compare-model-card" key={model.id}>
-              <h3>{model.title}</h3>
+        <>
+          <div className="compare-grid">
+            {comparedModels.map((model) => (
+              <article className="detail-card compare-model-card" key={model.id}>
+                <h3>{model.title}</h3>
 
-              <p>{model.description}</p>
+                <p>{model.description}</p>
 
-              <dl>
-                {compareFields.map((field) => (
-                  <div key={field.name}>
-                    <dt>{field.label}</dt>
-                    <dd>{model[field.name] ?? "Non disponibile"}</dd>
-                  </div>
-                ))}
-              </dl>
-            </article>
-          ))}
-        </div>
+                <dl>
+                  {compareFields.map((field) => (
+                    <div key={field.name}>
+                      <dt>{field.label}</dt>
+                      <dd>{model[field.name] ?? "Non disponibile"}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </article>
+            ))}
+          </div>
+
+          <div className="compare-reset-container">
+            <button
+              className="reset-button compare-reset-button"
+              type="button"
+              onClick={resetComparedModels}
+            >
+              Azzera comparazione
+            </button>
+          </div>
+        </>
       )}
     </section>
   );

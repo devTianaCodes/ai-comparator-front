@@ -54,62 +54,74 @@ function ModelDetail({ favoriteModelIds, onToggleFavorite }) {
       {detailError && <p>{detailError}</p>}
 
       {selectedModel && !isDetailLoading && !detailError && (
-        <article className="detail-card">
-          <h2>{selectedModel.title}</h2>
+        <article className="detail-card detail-card-layout">
+          <div className="detail-image-column">
+            <img
+              className="detail-image"
+              src={selectedModel.image}
+              alt={`Logo ${selectedModel.title}`}
+            />
+          </div>
 
-          <button
-            className="favorite-button"
-            type="button"
-            title={favoriteModelIds.includes(selectedModel.id) ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
-            aria-label={favoriteModelIds.includes(selectedModel.id) ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
-            onClick={() => onToggleFavorite(selectedModel.id)}
-          >
-            {favoriteModelIds.includes(selectedModel.id) ? "♥" : "♡"}
-          </button>
+          <div className="detail-text-column">
+            <div className="detail-title-row">
+              <h2>{selectedModel.title}</h2>
 
-          <p>{selectedModel.description}</p>
-
-          <dl>
-            <div>
-              <dt>Categoria</dt>
-              <dd>{selectedModel.category}</dd>
+              <button
+                className="favorite-button detail-favorite-button"
+                type="button"
+                title={favoriteModelIds.includes(selectedModel.id) ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+                aria-label={favoriteModelIds.includes(selectedModel.id) ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+                onClick={() => onToggleFavorite(selectedModel.id)}
+              >
+                {favoriteModelIds.includes(selectedModel.id) ? "♥" : "♡"}
+              </button>
             </div>
 
-            <div>
-              <dt>Fornitore</dt>
-              <dd>{selectedModel.provider}</dd>
-            </div>
+            <p>{selectedModel.description}</p>
 
-            <div>
-              <dt>Anno di rilascio</dt>
-              <dd>{selectedModel.releaseYear}</dd>
-            </div>
+            <dl>
+              <div>
+                <dt>Categoria</dt>
+                <dd>{selectedModel.category}</dd>
+              </div>
 
-            <div>
-              <dt>Modalità</dt>
-              <dd>{selectedModel.modality}</dd>
-            </div>
+              <div>
+                <dt>Fornitore</dt>
+                <dd>{selectedModel.provider}</dd>
+              </div>
 
-            <div>
-              <dt>Finestra di contesto</dt>
-              <dd>{selectedModel.contextWindow}</dd>
-            </div>
+              <div>
+                <dt>Anno di rilascio</dt>
+                <dd>{selectedModel.releaseYear}</dd>
+              </div>
 
-            <div>
-              <dt>Fascia di prezzo</dt>
-              <dd>{selectedModel.pricingTier}</dd>
-            </div>
+              <div>
+                <dt>Modalità</dt>
+                <dd>{selectedModel.modality}</dd>
+              </div>
 
-            <div>
-              <dt>Indice di intelligenza</dt>
-              <dd>{selectedModel.intelligenceIndex}</dd>
-            </div>
+              <div>
+                <dt>Finestra di contesto</dt>
+                <dd>{selectedModel.contextWindow}</dd>
+              </div>
 
-            <div>
-              <dt>Punti di forza</dt>
-              <dd>{selectedModel.strengths}</dd>
-            </div>
-          </dl>
+              <div>
+                <dt>Fascia di prezzo</dt>
+                <dd>{selectedModel.pricingTier}</dd>
+              </div>
+
+              <div>
+                <dt>Indice di intelligenza</dt>
+                <dd>{selectedModel.intelligenceIndex}</dd>
+              </div>
+
+              <div>
+                <dt>Punti di forza</dt>
+                <dd>{selectedModel.strengths}</dd>
+              </div>
+            </dl>
+          </div>
         </article>
       )}
     </section>

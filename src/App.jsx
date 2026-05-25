@@ -43,7 +43,7 @@ function App() {
 
         {/* Day 4: BrowserRouter handles the list page and the real detail page. */}
         <Routes>
-          //route per la lista dei modelli, passando i preferiti e la funzione di toggle come props
+          {/* route per la lista dei modelli, passando i preferiti e la funzione di toggle come props */}
           <Route path="/" element={
               <ModelList
                 favoriteModelIds={favoriteModelIds}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ModelRow from "../components/ModelRow";
+import ModelCard from "../components/ModelCard";
 
 
 
@@ -70,7 +70,25 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
         }
 
         const data = await response.json();
-        setModels(data);
+
+        const modelsWithImages = await Promise.all(
+          data.map(async (model) => {
+            const detailResponse = await fetch(`${API_URL}/models/${model.id}`);
+
+            if (!detailResponse.ok) {
+              throw new Error("Impossibile caricare le immagini dei modelli.");
+            }
+
+            const detailData = await detailResponse.json();
+
+            return {
+              ...model,
+              image: detailData.model.image,
+            };
+          })
+        );
+
+        setModels(modelsWithImages);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -181,9 +199,9 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
           {error && <p>{error}</p>}
 
           {!isLoading && !error && (
-            <ul className="model-list">
+            <ul className="model-list model-card-list">
               {sortedModels.map((model) => (
-                <ModelRow
+                <ModelCard
                   key={model.id}
                   model={model}
                   isFavorite={favoriteModelIds.includes(model.id)}

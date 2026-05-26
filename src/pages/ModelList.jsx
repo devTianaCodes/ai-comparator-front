@@ -12,6 +12,7 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
   const [models, setModels] = useState([]);
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [category, setCategory] = useState("");
   const [sortField, setSortField] = useState("title");
   const [sortOrder, setSortOrder] = useState("asc");
@@ -45,7 +46,17 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
   }, []); // Empty dependency: runs only once on initial load
 
 
-// Fetch models whenever the search term or selected category changes
+// debounces: aspetta che l'utente finisca di scrivere prima di cercare i modelli
+  useEffect(() => {
+    const searchTimer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+
+    return () => clearTimeout(searchTimer);
+  }, [search]);
+
+
+// Fetch models whenever the debounced search term or selected category changes
   useEffect(() => {
     async function fetchModels() {
       setIsLoading(true);
@@ -53,9 +64,9 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
 
       try {
         const query = new URLSearchParams();
-
-        if (search.trim()) {
-          query.append("search", search.trim());
+        
+        if (debouncedSearch.trim()) {
+          query.append("search", debouncedSearch.trim());
         }
 
         if (category) {
@@ -97,7 +108,7 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
     }
 
     fetchModels();
-  }, [search, category]); // Dependency array: runs whenever 'search' or 'category' changes
+  }, [debouncedSearch, category]); // Dependency array: runs whenever 'debouncedSearch' or 'category' changes
 
 
 

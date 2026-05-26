@@ -23,6 +23,7 @@ function ModelCompare() {
   const [searchParams] = useSearchParams();
   const selectedModelIdsText = searchParams.get("ids") || "";
   const selectedModelIds = selectedModelIdsText.split(",").filter(Boolean);
+  const hasNoSelectedModels = selectedModelIds.length === 0;
   const hasTwoSelectedModels = selectedModelIds.length === 2;
 
   const [comparedModels, setComparedModels] = useState([]);
@@ -80,7 +81,12 @@ function ModelCompare() {
     <section className="models-card compare-card">
       <h2>Comparazione modelli</h2>
 
-      {!hasTwoSelectedModels && (
+      {/* gestione degli stati vuoti: messaggio quando non ci sono modelli selezionati */}
+      {hasNoSelectedModels && (
+        <p>Nessun elemento selezionato nel comparatore.</p>
+      )}
+
+      {!hasNoSelectedModels && !hasTwoSelectedModels && (
         <p>Seleziona due modelli dalla lista per avviare la comparazione.</p>
       )}
 

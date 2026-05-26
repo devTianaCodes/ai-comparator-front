@@ -236,7 +236,12 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
           {isLoading && <p>Caricamento dei modelli...</p>}
           {error && <p>{error}</p>}
 
-          {!isLoading && !error && (
+          {/* gestione degli stati vuoti: messaggio quando non ci sono risultati */}
+          {!isLoading && !error && sortedModels.length === 0 && (
+            <p>Nessun risultato trovato.</p>
+          )}
+
+          {!isLoading && !error && sortedModels.length > 0 && (
             <ul className="model-list model-card-list">
               {sortedModels.map((model) => (
                 <ModelCard

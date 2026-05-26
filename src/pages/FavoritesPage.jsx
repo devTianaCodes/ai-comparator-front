@@ -68,8 +68,9 @@ function FavoritesPage({ favoriteModelIds, onToggleFavorite }) {
       {isLoading && <p>Caricamento dei preferiti...</p>}
       {error && <p>{error}</p>}
 
+      {/* gestione degli stati vuoti: messaggio quando la lista preferiti è vuota */}
       {!isLoading && !error && favoriteModels.length === 0 && (
-        <p>Nessun preferito selezionato.</p>
+        <p>Lista preferiti vuota.</p>
       )}
 
       {!isLoading && !error && favoriteModels.length > 0 && (

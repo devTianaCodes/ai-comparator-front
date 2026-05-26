@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import FavoritesPage from "./pages/FavoritesPage";
 import ModelCompare from "./pages/ModelCompare";
@@ -7,9 +7,37 @@ import ModelList from "./pages/ModelList";
 import "./App.css";
 
 
+const FAVORITE_MODELS_STORAGE_KEY = "favoriteModelIds";
+
 function App() {
 
-  const [favoriteModelIds, setFavoriteModelIds] = useState([]);
+// persistenza dei preferiti: carica i preferiti salvati nel browser
+  const [favoriteModelIds, setFavoriteModelIds] = useState(() => {
+    const savedFavoriteIds = localStorage.getItem(FAVORITE_MODELS_STORAGE_KEY);
+
+    try {
+      if (savedFavoriteIds) {
+        const parsedFavoriteIds = JSON.parse(savedFavoriteIds);
+
+        if (Array.isArray(parsedFavoriteIds)) {
+          return parsedFavoriteIds;
+        }
+      }
+    } catch {
+      return [];
+    }
+
+    return [];
+  });
+
+
+// persistenza dei preferiti: salva i preferiti quando cambiano
+  useEffect(() => {
+    localStorage.setItem(
+      FAVORITE_MODELS_STORAGE_KEY,
+      JSON.stringify(favoriteModelIds)
+    );
+  }, [favoriteModelIds]);
 
 // Funzione per aggiungere o rimuovere un modello dai preferiti
   function toggleFavoriteModel(modelId) {

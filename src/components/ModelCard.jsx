@@ -33,7 +33,7 @@ function ModelCard({
 
       <div className="model-card-text">
         <h3>{model.title}</h3>
-        <p>{model.category}</p>
+        <p>Categoria: {model.category}</p>
       </div>
 
       <div className="model-actions">

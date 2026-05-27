@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import ModelCard from "../components/ModelCard";
 
@@ -113,21 +113,25 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
 
 
   // Sort models based on the selected field and order  
-  const sortedModels = [...models].sort((firstModel, secondModel) => {
+  //useMemo is used to optimize performance by memoizing the sorted list of models, 
+  // so it only recalculates when the models, sortField, or sortOrder change.
+  const sortedModels = useMemo(() => {
+    return [...models].sort((firstModel, secondModel) => {
 
-    const firstValue = firstModel[sortField] || "";
-    const secondValue = secondModel[sortField] || "";
+      const firstValue = firstModel[sortField] || "";
+      const secondValue = secondModel[sortField] || "";
 
-    if (firstValue < secondValue) {
-      return sortOrder === "asc" ? -1 : 1;
-    }
+      if (firstValue < secondValue) {
+        return sortOrder === "asc" ? -1 : 1;
+      }
 
-    if (firstValue > secondValue) {
-      return sortOrder === "asc" ? 1 : -1;
-    }
+      if (firstValue > secondValue) {
+        return sortOrder === "asc" ? 1 : -1;
+      }
 // If values are equal, maintain their original order
-    return 0;
-  });
+      return 0;
+    });
+  }, [models, sortField, sortOrder]);
 
 
 

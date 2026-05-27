@@ -133,6 +133,7 @@ h2 {
 .compare-card h2 {
   margin-top: 10px;
   margin-bottom: 0;
+  padding-bottom: 30px;
 }
 
 .homepage-layout {
@@ -409,6 +410,10 @@ select {
 .compare-model-card h3 {
   margin: 0 0 20px;
   text-align: center;
+}
+
+.compare-model-card dl div {
+  background: #fff7f1;
 }
 
 @media (max-width: 700px) {

@@ -39,6 +39,7 @@ function App() {
     );
   }, [favoriteModelIds]);
 
+  
 // Funzione per aggiungere o rimuovere un modello dai preferiti
   function toggleFavoriteModel(modelId) {
     if (favoriteModelIds.includes(modelId)) {

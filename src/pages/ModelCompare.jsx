@@ -19,8 +19,9 @@ const compareFields = [
 
 function ModelCompare() {
 
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const navigate = useNavigate(); // navigazione programmatica
+  const [searchParams] = useSearchParams(); // hook per leggere i parametri di ricerca dalla URL, in questo caso gli id dei modelli da comparare
+  
   const selectedModelIdsText = searchParams.get("ids") || "";
   const selectedModelIds = selectedModelIdsText.split(",").filter(Boolean);
   const hasNoSelectedModels = selectedModelIds.length === 0;
@@ -31,12 +32,14 @@ function ModelCompare() {
   const [compareError, setCompareError] = useState("");
 
 
+// Fetch dei modelli da comparare ogni volta che cambiano i parametri di ricerca (gli id dei modelli da comparare)
   useEffect(() => {
     async function fetchComparedModels() {
       setIsCompareLoading(true);
       setCompareError("");
       setComparedModels([]);
 
+      // Se non ci sono esattamente due id di modelli selezionati, non fare la fetch e aspetta che l'utente selezioni i modelli corretti
       try {
         const ids = selectedModelIdsText.split(",").filter(Boolean);
 
@@ -47,13 +50,13 @@ function ModelCompare() {
         const responses = await Promise.all(
           ids.map((modelId) => fetch(`${API_URL}/models/${modelId}`))
         );
-
+        // Controlla se c'è stato un errore in una delle fetch
         const hasError = responses.some((response) => !response.ok);
 
         if (hasError) {
           throw new Error("Impossibile caricare la comparazione.");
         }
-
+        // Se tutte le fetch sono andate a buon fine, parsea i dati e imposta i modelli comparati nello stato
         const data = await Promise.all(
           responses.map((response) => response.json())
         );
@@ -63,14 +66,14 @@ function ModelCompare() {
       } catch {
         setCompareError("Impossibile caricare la comparazione.");
       } finally {
-        setIsCompareLoading(false);
+        setIsCompareLoading(false);// alla fine della fetch, sia in caso di successo che di errore, imposta isCompareLoading a false per indicare che il caricamento è terminato
       }
     }
 
     fetchComparedModels();
   }, [selectedModelIdsText]);
 
-
+  // Funzione per resettare la comparazione, navigando alla home page (lista dei modelli)
   function resetComparedModels() {
     navigate("/");
   }

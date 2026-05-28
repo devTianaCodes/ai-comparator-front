@@ -9,12 +9,14 @@ function ModelCard({
   isCompareLimitReached,
   onToggleCompare,
 }) {
+  
  // Disabilita il pulsante "Compara" se il limite di confronto è raggiunto e questo modello non è già selezionato.
   const isCompareButtonDisabled = isCompareLimitReached && !isSelectedForCompare;
-  const hasCompareButton = Boolean(onToggleCompare);
+  const hasCompareButton = Boolean(onToggleCompare); //
 
   return (
     <li className="model-card">
+
       <button
         className="favorite-button model-card-favorite"
         type="button"
@@ -37,12 +39,13 @@ function ModelCard({
       </div>
 
       <div className="model-actions">
+
         {hasCompareButton && (
           <button
             className={isSelectedForCompare ? "compare-button selected-compare-button" : "compare-button"}
             type="button"
             disabled={isCompareButtonDisabled}
-            onClick={() => onToggleCompare(model.id)}
+            onClick={() => onToggleCompare(model.id)}// onClick chiama la funzione di toggleCompare passando l'id del modello
           >
             {isSelectedForCompare ? "Selezionato" : "Compara"}
           </button>

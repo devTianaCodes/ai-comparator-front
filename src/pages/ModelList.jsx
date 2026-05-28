@@ -248,6 +248,8 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
           {!isLoading && !error && sortedModels.length > 0 && (
             <ul className="model-list model-card-list">
               {sortedModels.map((model) => (
+                
+                // Passa le props necessarie a ModelCard, inclusi i preferiti e la funzione di toggle dei preferiti, e le props per la comparazione
                 <ModelCard
                   key={model.id}
                   model={model}

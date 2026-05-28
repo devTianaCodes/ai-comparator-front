@@ -9,12 +9,14 @@ import "./App.css";
 
 const FAVORITE_MODELS_STORAGE_KEY = "favoriteModelIds";
 
+
+
 function App() {
 
 // persistenza dei preferiti: carica i preferiti salvati nel browser
   const [favoriteModelIds, setFavoriteModelIds] = useState(() => {
     const savedFavoriteIds = localStorage.getItem(FAVORITE_MODELS_STORAGE_KEY);
-
+    // se ci sono dati salvati, prova a parsearli e restituirli come array, altrimenti restituisci un array vuoto
     try {
       if (savedFavoriteIds) {
         const parsedFavoriteIds = JSON.parse(savedFavoriteIds);
@@ -24,10 +26,10 @@ function App() {
         }
       }
     } catch {
-      return [];
+      return [];// se c'è un errore nel parsing, restituisci un array vuoto
     }
 
-    return [];
+    return [];// se non ci sono dati salvati, restituisci un array vuoto
   });
 
 
@@ -37,11 +39,12 @@ function App() {
       FAVORITE_MODELS_STORAGE_KEY,
       JSON.stringify(favoriteModelIds)
     );
-  }, [favoriteModelIds]);
+  }, [favoriteModelIds]);// ogni volta che favoriteModelIds cambia, salva il nuovo array di preferiti nel localStorage del browser
 
   
 // Funzione per aggiungere o rimuovere un modello dai preferiti
   function toggleFavoriteModel(modelId) {
+    // se il modello è già nei preferiti, rimuovilo, altrimenti aggiungilo
     if (favoriteModelIds.includes(modelId)) {
       const updatedFavoriteIds = favoriteModelIds.filter((id) => id !== modelId);
       setFavoriteModelIds(updatedFavoriteIds);
@@ -53,7 +56,9 @@ function App() {
 
 
   return (
+
     <BrowserRouter>
+
       <header className="app-header">
         <nav className="header-nav-left">
           <NavLink to="/">
@@ -72,7 +77,6 @@ function App() {
 
       <main className="page">
 
-        {/* Day 4: BrowserRouter handles the list page and the real detail page. */}
         <Routes>
           {/* route per la lista dei modelli, passando i preferiti e la funzione di toggle come props */}
           <Route path="/" element={
@@ -90,6 +94,7 @@ function App() {
               />
             }
           />
+
           <Route path="/favorites" element={
               <FavoritesPage
                 favoriteModelIds={favoriteModelIds}

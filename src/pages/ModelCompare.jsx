@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+// Campi da mostrare nella comparazione, con label e nome del campo corrispondente nei dati del modello
 const compareFields = [
   { label: "Categoria", name: "category" },
   { label: "Fornitore", name: "provider" },

@@ -9,7 +9,7 @@ function useModels() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-
+// Funzione per fetchare un singolo modello per id, usata nella pagina di dettaglio del modello e nella lista dei modelli per mostrare le immagini nei card
   const fetchModelById = useCallback(async function fetchModelById(modelId) {
     const response = await fetch(`${API_URL}/models/${modelId}`);
 
@@ -21,8 +21,8 @@ function useModels() {
     return data.model;
   }, []);
 
-
-  const fetchFullModels = useCallback(async function fetchFullModels(query = "") {
+// Funzione per fetchare i modelli con immagini, usata nella lista dei modelli per mostrare le immagini nei card
+  const fetchFullModels = useCallback(async function fetchFullModels(query = "") { //useCallback per evitare di ricreare la funzione ad ogni render, e accettare un parametro di query per filtrare i modelli
     setIsLoading(true);
     setError("");
 

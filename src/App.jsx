@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import { GlobalProvider } from "./context/GlobalContext";
 import FavoritesPage from "./pages/FavoritesPage";
 import ModelCompare from "./pages/ModelCompare";
 import ModelDetail from "./pages/ModelDetail";
@@ -57,55 +58,57 @@ function App() {
 
   return (
 
-    <BrowserRouter>
+    <GlobalProvider>
+      <BrowserRouter>
 
-      <header className="app-header">
-        <nav className="header-nav-left">
-          <NavLink to="/">
-            Modelli
-          </NavLink>
-        </nav>
+        <header className="app-header">
+          <nav className="header-nav-left">
+            <NavLink to="/">
+              Modelli
+            </NavLink>
+          </nav>
 
-        <h1>Comparatore IA</h1>
+          <h1>Comparatore IA</h1>
 
-        <nav className="header-nav-right">
-          <NavLink to="/favorites">
-            Preferiti
-          </NavLink>
-        </nav>
-      </header>
+          <nav className="header-nav-right">
+            <NavLink to="/favorites">
+              Preferiti
+            </NavLink>
+          </nav>
+        </header>
 
-      <main className="page">
+        <main className="page">
 
-        <Routes>
-          {/* route per la lista dei modelli, passando i preferiti e la funzione di toggle come props */}
-          <Route path="/" element={
-              <ModelList
-                favoriteModelIds={favoriteModelIds}
-                onToggleFavorite={toggleFavoriteModel}
-              />
-            }
-          />
-            
-          <Route path="/models/:id" element={
-              <ModelDetail
-                favoriteModelIds={favoriteModelIds}
-                onToggleFavorite={toggleFavoriteModel}
-              />
-            }
-          />
+          <Routes>
+            {/* route per la lista dei modelli, passando i preferiti e la funzione di toggle come props */}
+            <Route path="/" element={
+                <ModelList
+                  favoriteModelIds={favoriteModelIds}
+                  onToggleFavorite={toggleFavoriteModel}
+                />
+              }
+            />
+              
+            <Route path="/models/:id" element={
+                <ModelDetail
+                  favoriteModelIds={favoriteModelIds}
+                  onToggleFavorite={toggleFavoriteModel}
+                />
+              }
+            />
 
-          <Route path="/favorites" element={
-              <FavoritesPage
-                favoriteModelIds={favoriteModelIds}
-                onToggleFavorite={toggleFavoriteModel}
-              />
-            }
-          />
-          <Route path="/compare" element={<ModelCompare />} />
-        </Routes>
-      </main>
-    </BrowserRouter>
+            <Route path="/favorites" element={
+                <FavoritesPage
+                  favoriteModelIds={favoriteModelIds}
+                  onToggleFavorite={toggleFavoriteModel}
+                />
+              }
+            />
+            <Route path="/compare" element={<ModelCompare />} />
+          </Routes>
+        </main>
+      </BrowserRouter>
+    </GlobalProvider>
   );
 }
 

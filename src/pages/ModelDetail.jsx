@@ -1,14 +1,16 @@
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../context/GlobalContext";
 
 
 
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-function ModelDetail({ favoriteModelIds, onToggleFavorite }) {
+function ModelDetail() {
 
   const { id } = useParams();
+  const { favoriteModelIds, toggleFavoriteModel } = useContext(GlobalContext);
 
   // State to hold the details of the selected model
   const [selectedModel, setSelectedModel] = useState(null);
@@ -69,7 +71,7 @@ function ModelDetail({ favoriteModelIds, onToggleFavorite }) {
                   type="button"
                   title={favoriteModelIds.includes(selectedModel.id) ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
                   aria-label={favoriteModelIds.includes(selectedModel.id) ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
-                  onClick={() => onToggleFavorite(selectedModel.id)}
+                  onClick={() => toggleFavoriteModel(selectedModel.id)}
                 >
                   {favoriteModelIds.includes(selectedModel.id) ? "♥" : "♡"}
                 </button>

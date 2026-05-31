@@ -1,13 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import ModelCard from "../components/ModelCard";
+import { GlobalContext } from "../context/GlobalContext";
 
 
 
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-function ModelList({ favoriteModelIds, onToggleFavorite }) {
+function ModelList() {
+
+  const { favoriteModelIds, toggleFavoriteModel } = useContext(GlobalContext);
 
   const [models, setModels] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -254,7 +257,7 @@ function ModelList({ favoriteModelIds, onToggleFavorite }) {
                   key={model.id}
                   model={model}
                   isFavorite={favoriteModelIds.includes(model.id)}
-                  onToggleFavorite={onToggleFavorite}
+                  onToggleFavorite={toggleFavoriteModel}
                   isSelectedForCompare={compareModelIds.includes(model.id)}
                   isCompareLimitReached={compareModelIds.length === 2}
                   onToggleCompare={toggleCompareModel}

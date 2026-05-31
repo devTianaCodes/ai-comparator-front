@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ModelCard from "../components/ModelCard";
+import { GlobalContext } from "../context/GlobalContext";
 
 
 
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-function FavoritesPage({ favoriteModelIds, onToggleFavorite }) {
+function FavoritesPage() {
+
+  const { favoriteModelIds, toggleFavoriteModel } = useContext(GlobalContext);
 
   const [models, setModels] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -80,7 +83,7 @@ function FavoritesPage({ favoriteModelIds, onToggleFavorite }) {
               key={model.id}
               model={model}
               isFavorite={favoriteModelIds.includes(model.id)}
-              onToggleFavorite={onToggleFavorite}
+              onToggleFavorite={toggleFavoriteModel}
             />
           ))}
         </ul>

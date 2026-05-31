@@ -47,11 +47,49 @@ function useModels() {
   }
 
 
+  async function fetchModelsWithImages(query = "") {
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch(`${API_URL}/models${query}`);
+
+      if (!response.ok) {
+        throw new Error("Impossibile caricare i modelli.");
+      }
+
+      const data = await response.json();
+
+      const modelsWithImages = await Promise.all(
+        data.map(async (model) => {
+          const modelDetails = await fetchModelById(model.id);
+
+          return {
+            ...model,
+            image: modelDetails.image,
+          };
+        })
+      );
+
+      setModels(modelsWithImages);
+      return modelsWithImages;
+
+    } catch {
+      setError("Impossibile caricare i modelli.");
+      return [];
+      
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+
   return {
     models,
     isLoading,
     error,
     fetchModels,
+    fetchModelsWithImages,
     fetchModelById,
   };
 }

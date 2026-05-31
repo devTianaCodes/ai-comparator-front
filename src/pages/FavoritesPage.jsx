@@ -1,62 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ModelCard from "../components/ModelCard";
 import { GlobalContext } from "../context/GlobalContext";
+import useModels from "../hooks/useModels";
 
 
-
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 function FavoritesPage() {
 
   const { favoriteModelIds, toggleFavoriteModel } = useContext(GlobalContext);
-
-  const [models, setModels] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { models, isLoading, error, fetchFullModels } = useModels();
 
 
   useEffect(() => {
-    async function fetchModels() {
-      setIsLoading(true);
-      setError("");
-
-      try {
-        const response = await fetch(`${API_URL}/models`);
-
-        if (!response.ok) {
-          throw new Error("Impossibile caricare i preferiti.");
-        }
-
-        const data = await response.json();
-
-        const modelsWithImages = await Promise.all(
-          data.map(async (model) => {
-            const detailResponse = await fetch(`${API_URL}/models/${model.id}`);
-
-            if (!detailResponse.ok) {
-              throw new Error("Impossibile caricare le immagini dei preferiti.");
-            }
-
-            const detailData = await detailResponse.json();
-
-            return {
-              ...model,
-              image: detailData.model.image,
-            };
-          })
-        );
-
-        setModels(modelsWithImages);
-      } catch {
-        setError("Impossibile caricare i preferiti.");
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchModels();
-  }, []);
+    fetchFullModels();
+  }, [fetchFullModels]);
 
 
   const favoriteModels = models.filter((model) =>

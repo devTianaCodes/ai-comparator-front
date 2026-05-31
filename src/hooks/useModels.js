@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function useModels() {
 
@@ -10,7 +10,7 @@ function useModels() {
   const [error, setError] = useState("");
 
 
-  async function fetchModelById(modelId) {
+  const fetchModelById = useCallback(async function fetchModelById(modelId) {
     const response = await fetch(`${API_URL}/models/${modelId}`);
 
     if (!response.ok) {
@@ -19,35 +19,10 @@ function useModels() {
 
     const data = await response.json();
     return data.model;
-  }
+  }, []);
 
 
-  async function fetchModels(query = "") {
-    setIsLoading(true);
-    setError("");
-
-    try {
-      const response = await fetch(`${API_URL}/models${query}`);
-
-      if (!response.ok) {
-        throw new Error("Impossibile caricare i modelli.");
-      }
-
-      const data = await response.json();
-      setModels(data);
-      return data;
-
-    } catch {
-      setError("Impossibile caricare i modelli.");
-      return [];
-      
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-
-  async function fetchModelsWithImages(query = "") {
+  const fetchFullModels = useCallback(async function fetchFullModels(query = "") {
     setIsLoading(true);
     setError("");
 
@@ -60,19 +35,12 @@ function useModels() {
 
       const data = await response.json();
 
-      const modelsWithImages = await Promise.all(
-        data.map(async (model) => {
-          const modelDetails = await fetchModelById(model.id);
-
-          return {
-            ...model,
-            image: modelDetails.image,
-          };
-        })
+      const fullModels = await Promise.all(
+        data.map((model) => fetchModelById(model.id))
       );
 
-      setModels(modelsWithImages);
-      return modelsWithImages;
+      setModels(fullModels);
+      return fullModels;
 
     } catch {
       setError("Impossibile caricare i modelli.");
@@ -81,15 +49,14 @@ function useModels() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [fetchModelById]);
 
 
   return {
     models,
     isLoading,
     error,
-    fetchModels,
-    fetchModelsWithImages,
+    fetchFullModels,
     fetchModelById,
   };
 }

@@ -2,17 +2,18 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import ModelCard from "../components/ModelCard";
 import { GlobalContext } from "../context/GlobalContext";
+import useModels from "../hooks/useModels";
 
 
 
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function ModelList() {
 
   const { favoriteModelIds, toggleFavoriteModel } = useContext(GlobalContext);
+  const { models, isLoading, error, fetchFullModels } = useModels();
 
-  const [models, setModels] = useState([]);
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -20,16 +21,14 @@ function ModelList() {
   const [sortField, setSortField] = useState("title");
   const [sortOrder, setSortOrder] = useState("asc");
   const [compareModelIds, setCompareModelIds] = useState([]);
+  const [categoryError, setCategoryError] = useState("");
   
-  
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
-
 
 // Fetch categories on initial load
   useEffect(() => {
     async function fetchCategories() {
       try {
+        setCategoryError("");
         const response = await fetch(`${API_URL}/models`);
 
         if (!response.ok) {
@@ -41,7 +40,7 @@ function ModelList() {
         const uniqueCategories = [...new Set(modelCategories)].sort();
         setCategories(uniqueCategories);
       } catch {
-        setError("Impossibile caricare le categorie.");
+        setCategoryError("Impossibile caricare le categorie.");
       }
     }
 
@@ -61,57 +60,21 @@ function ModelList() {
 
 // Fetch models whenever the debounced search term or selected category changes
   useEffect(() => {
-    async function fetchModels() {
-      setIsLoading(true);
-      setError("");
-
-      try {
-        const query = new URLSearchParams();
+    const query = new URLSearchParams();
         
-        if (debouncedSearch.trim()) {
-          query.append("search", debouncedSearch.trim());
-        }
-
-        if (category) {
-          query.append("category", category);
-        }
-
-        const url = `${API_URL}/models?${query.toString()}`;
-        const response = await fetch(url);
-
-        if (!response.ok) {
-          throw new Error("Impossibile caricare i modelli.");
-        }
-
-        const data = await response.json();
-
-        const modelsWithImages = await Promise.all(
-          data.map(async (model) => {
-            const detailResponse = await fetch(`${API_URL}/models/${model.id}`);
-
-            if (!detailResponse.ok) {
-              throw new Error("Impossibile caricare le immagini dei modelli.");
-            }
-
-            const detailData = await detailResponse.json();
-
-            return {
-              ...model,
-              image: detailData.model.image,
-            };
-          })
-        );
-
-        setModels(modelsWithImages);
-      } catch {
-        setError("Impossibile caricare i modelli.");
-      } finally {
-        setIsLoading(false);
-      }
+    if (debouncedSearch.trim()) {
+      query.append("search", debouncedSearch.trim());
     }
 
-    fetchModels();
-  }, [debouncedSearch, category]); // Dependency array: runs whenever 'debouncedSearch' or 'category' changes
+    if (category) {
+      query.append("category", category);
+    }
+
+    const queryString = query.toString();
+    const modelsQuery = queryString ? `?${queryString}` : "";
+
+    fetchFullModels(modelsQuery);
+  }, [debouncedSearch, category, fetchFullModels]); // Dependency array: runs whenever 'debouncedSearch' or 'category' changes
 
 
 
@@ -157,6 +120,7 @@ function ModelList() {
 
 // Costruisce il link per la pagina di comparazione con gli ID dei modelli selezionati
   const compareLink = `/compare?ids=${compareModelIds.join(",")}`;
+  const errorMessage = error || categoryError;
 
 
   return (
@@ -211,7 +175,7 @@ function ModelList() {
             <option value="desc">Z-A</option>
           </select>
 
-          {!isLoading && !error && (
+          {!isLoading && !errorMessage && (
             <div className="compare-section">
               <h3>Compara</h3>
 
@@ -241,14 +205,14 @@ function ModelList() {
 
         <div className="models-list-container">
           {isLoading && <p>Caricamento dei modelli...</p>}
-          {error && <p>{error}</p>}
+          {errorMessage && <p>{errorMessage}</p>}
 
           {/* gestione degli stati vuoti: messaggio quando non ci sono risultati */}
-          {!isLoading && !error && sortedModels.length === 0 && (
+          {!isLoading && !errorMessage && sortedModels.length === 0 && (
             <p>Nessun risultato trovato.</p>
           )}
 
-          {!isLoading && !error && sortedModels.length > 0 && (
+          {!isLoading && !errorMessage && sortedModels.length > 0 && (
             <ul className="model-list model-card-list">
               {sortedModels.map((model) => (
                 

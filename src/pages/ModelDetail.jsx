@@ -8,7 +8,7 @@ import { GlobalContext } from "../context/GlobalContext";
 const API_URL = import.meta.env.VITE_API_URL;
 
 function ModelDetail() {
-
+  // Prende l'id del modello dai parametri dell'URL usando useParams di react-router-dom
   const { id } = useParams();
   const { favoriteModelIds, toggleFavoriteModel } = useContext(GlobalContext);
 
@@ -32,7 +32,7 @@ function ModelDetail() {
           throw new Error("Impossibile caricare i dettagli del modello.");
         }
 
-        const data = await response.json();
+        const data = await response.json();//
         setSelectedModel(data.model);
       } catch {
         setDetailError("Impossibile caricare i dettagli del modello.");

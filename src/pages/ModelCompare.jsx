@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 
@@ -24,7 +24,14 @@ function ModelCompare() {
   const [searchParams] = useSearchParams(); // hook per leggere i parametri di ricerca dalla URL, in questo caso gli id dei modelli da comparare
   
   const selectedModelIdsText = searchParams.get("ids") || "";
-  const selectedModelIds = selectedModelIdsText.split(",").filter(Boolean);
+  // prendo il valore del parametro "ids" dalla URL, che contiene gli id dei modelli 
+  // da comparare separati da virgola, e se non c'è, uso una stringa vuota per evitare
+  //  errori di split
+  const selectedModelIds = useMemo(() => {
+    return selectedModelIdsText.split(",").filter(Boolean);
+  }, [selectedModelIdsText]);
+  // split della stringa degli id in un array, e filtro per rimuovere eventuali 
+  // stringhe vuote (ad esempio se c'è una virgola alla fine)
   const hasNoSelectedModels = selectedModelIds.length === 0;
   const hasTwoSelectedModels = selectedModelIds.length === 2;
 
@@ -40,16 +47,15 @@ function ModelCompare() {
       setCompareError("");
       setComparedModels([]);
 
-      // Se non ci sono esattamente due id di modelli selezionati, non fare la fetch e aspetta che l'utente selezioni i modelli corretti
+      // Se non ci sono esattamente due id di modelli selezionati, 
+      // non fare la fetch e aspetta che l'utente selezioni i modelli corretti
       try {
-        const ids = selectedModelIdsText.split(",").filter(Boolean);
-
-        if (ids.length !== 2) {
+        if (selectedModelIds.length !== 2) {
           return;
         }
 
         const responses = await Promise.all(
-          ids.map((modelId) => fetch(`${API_URL}/models/${modelId}`))
+          selectedModelIds.map((modelId) => fetch(`${API_URL}/models/${modelId}`))
         );
         // Controlla se c'è stato un errore in una delle fetch
         const hasError = responses.some((response) => !response.ok);
@@ -57,7 +63,8 @@ function ModelCompare() {
         if (hasError) {
           throw new Error("Impossibile caricare la comparazione.");
         }
-        // Se tutte le fetch sono andate a buon fine, parsea i dati e imposta i modelli comparati nello stato
+        // Se tutte le fetch sono andate a buon fine, 
+        // parsea i dati e imposta i modelli comparati nello stato
         const data = await Promise.all(
           responses.map((response) => response.json())
         );
@@ -72,7 +79,7 @@ function ModelCompare() {
     }
 
     fetchComparedModels();
-  }, [selectedModelIdsText]);
+  }, [selectedModelIds]);
 
   // Funzione per resettare la comparazione, navigando alla home page (lista dei modelli)
   function resetComparedModels() {
@@ -116,7 +123,9 @@ function ModelCompare() {
                   {compareFields.map((field) => (
                     <div key={field.name}>
                       <dt>{field.label}</dt>
-                      <dd>{model[field.name] ?? "Non disponibile"}</dd>
+                      //dinamic property access per accedere al campo corrispondente 
+                      nei dati del modello, usando il nome del campo definito nell'array compareFields
+                      <dd>{model[field.name] ?? "Non disponibile"}</dd> 
                     </div>
                   ))}
                 </dl>

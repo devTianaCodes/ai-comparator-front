@@ -12,7 +12,7 @@ function ModelCard({
   
  // Disabilita il pulsante "Compara" se il limite di confronto è raggiunto e questo modello non è già selezionato.
   const isCompareButtonDisabled = isCompareLimitReached && !isSelectedForCompare;
-  const hasCompareButton = Boolean(onToggleCompare); //
+  const hasCompareButton = Boolean(onToggleCompare); //casting a boolean per verificare se la funzione onToggleCompare è stata passata come prop, e mostrare o nascondere il pulsante di comparazione di conseguenza
 
   return (
     <li className="model-card">

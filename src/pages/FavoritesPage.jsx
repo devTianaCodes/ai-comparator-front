@@ -10,12 +10,17 @@ function FavoritesPage() {
   const { favoriteModelIds, toggleFavoriteModel } = useContext(GlobalContext);
   const { models, isLoading, error, fetchFullModels } = useModels();
 
-
+ // Effettua il fetch dei modelli quando il componente viene montato, 
+ // per avere i dati completi dei modelli preferiti da mostrare nei card, 
+ // e aggiorna la lista dei modelli ogni volta che cambia la funzione di fetch 
+ // (che dipende dalla funzione di fetch del singolo modello)
   useEffect(() => {
     fetchFullModels();
   }, [fetchFullModels]);
 
-
+  
+  // Filtra i modelli per mostrare solo quelli che sono nei preferiti, 
+  // usando gli id dei preferiti per confrontare con gli id dei modelli
   const favoriteModels = models.filter((model) =>
     favoriteModelIds.includes(model.id)
   );

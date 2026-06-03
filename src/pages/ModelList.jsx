@@ -17,6 +17,7 @@ function ModelList() {
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+
   const [category, setCategory] = useState("");
   const [sortField, setSortField] = useState("title");
   const [sortOrder, setSortOrder] = useState("asc");
@@ -24,7 +25,8 @@ function ModelList() {
   const [categoryError, setCategoryError] = useState("");
   
 
-// Fetch categories on initial load
+//useEffect per fetchare le categorie dei modelli al caricamento della pagina, 
+// per popolare il filtro delle categorie, e gestire eventuali errori di fetch delle categorie
   useEffect(() => {
     async function fetchCategories() {
       try {
@@ -37,7 +39,16 @@ function ModelList() {
 
         const data = await response.json();
         const modelCategories = data.map((model) => model.category);
-        const uniqueCategories = [...new Set(modelCategories)].sort();
+        
+        const uniqueCategories = [];
+
+        modelCategories.forEach((category) => {
+          if (!uniqueCategories.includes(category)) {
+            uniqueCategories.push(category);
+          }
+        });
+
+        uniqueCategories.sort();// ordina le categorie in ordine alfabetico per una migliore UX nel filtro
         setCategories(uniqueCategories);
       } catch {
         setCategoryError("Impossibile caricare le categorie.");
@@ -48,17 +59,20 @@ function ModelList() {
   }, []); // Empty dependency: runs only once on initial load
 
 
-// debounces: aspetta che l'utente finisca di scrivere prima di cercare i modelli
+//useEffect per gestire il debounce della ricerca, per evitare di fare una fetch ad ogni lettera digitata, e migliorare le performance
   useEffect(() => {
     const searchTimer = setTimeout(() => {
       setDebouncedSearch(search);
     }, 500);
 
     return () => clearTimeout(searchTimer);
+    // Cleanup della timeout precedente se search cambia prima che il timer scada, 
+    // per evitare di fare fetch inutili
   }, [search]);
 
 
-// Fetch models whenever the debounced search term or selected category changes
+//useEffect per fetchare i modelli ogni volta che cambiano i parametri di ricerca 
+// (search e category)
   useEffect(() => {
     const query = new URLSearchParams();
         
@@ -94,13 +108,13 @@ function ModelList() {
       if (firstValue > secondValue) {
         return sortOrder === "asc" ? 1 : -1;
       }
-// If values are equal, maintain their original order
+  // If values are equal, maintain their original order
       return 0;
     });
   }, [models, sortField, sortOrder]);
 
 
-
+//
   function toggleCompareModel(modelId) {
     if (compareModelIds.includes(modelId)) {
       const updatedModelIds = compareModelIds.filter((id) => id !== modelId);

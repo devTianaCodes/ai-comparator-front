@@ -123,8 +123,7 @@ function ModelCompare() {
                   {compareFields.map((field) => (
                     <div key={field.name}>
                       <dt>{field.label}</dt>
-                      //dinamic property access per accedere al campo corrispondente 
-                      nei dati del modello, usando il nome del campo definito nell'array compareFields
+                      
                       <dd>{model[field.name] ?? "Non disponibile"}</dd> 
                     </div>
                   ))}

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import ModelCard from "../components/ModelCard";
 import { GlobalContext } from "../context/GlobalContext";
@@ -16,7 +16,6 @@ function ModelList() {
 
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
 
   const [category, setCategory] = useState("");
   const [sortField, setSortField] = useState("title");
@@ -59,16 +58,22 @@ function ModelList() {
   }, []); // Empty dependency: runs only once on initial load
 
 
-//useEffect per gestire il debounce della ricerca, per evitare di fare una fetch ad ogni lettera digitata, e migliorare le performance
-  useEffect(() => {
-    const searchTimer = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, 500);
+// debounce ritarda l'aggiornamento della ricerca per migliorare le prestazioni.
+  const debounce = useCallback((callback, delay) => {
+    let timeoutId;
 
-    return () => clearTimeout(searchTimer);
-    // Cleanup della timeout precedente se search cambia prima che il timer scada, 
-    // per evitare di fare fetch inutili
-  }, [search]);
+    return (value) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        callback(value);
+      }, delay);
+    };
+  }, []);
+
+// funzione memorizzata aggiorna la ricerca con un piccolo ritardo.
+  const debouncedSetSearch = useMemo(() => {
+    return debounce(setSearch, 500);
+  }, [debounce]);
 
 
 //useEffect per fetchare i modelli ogni volta che cambiano i parametri di ricerca 
@@ -76,8 +81,8 @@ function ModelList() {
   useEffect(() => {
     const query = new URLSearchParams();
         
-    if (debouncedSearch.trim()) {
-      query.append("search", debouncedSearch.trim());
+    if (search.trim()) {
+      query.append("search", search.trim());
     }
 
     if (category) {
@@ -88,7 +93,7 @@ function ModelList() {
     const modelsQuery = queryString ? `?${queryString}` : "";
 
     fetchFullModels(modelsQuery);
-  }, [debouncedSearch, category, fetchFullModels]); // Dependency array: runs whenever 'debouncedSearch' or 'category' changes
+  }, [search, category, fetchFullModels]); // Dependency array: runs whenever 'search' or 'category' changes
 
 
 
@@ -114,8 +119,11 @@ function ModelList() {
   }, [models, sortField, sortOrder]);
 
 
-//
+// Funzione per gestire la selezione dei modelli da comparare, 
+// limitando la selezione a due modelli, 
+// e permettendo di deselezionare un modello già selezionato
   function toggleCompareModel(modelId) {
+    // Se il modello è già selezionato per la comparazione, deselezionalo
     if (compareModelIds.includes(modelId)) {
       const updatedModelIds = compareModelIds.filter((id) => id !== modelId);
       setCompareModelIds(updatedModelIds);
@@ -148,8 +156,7 @@ function ModelList() {
           <input
             id="search"
             type="search"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => debouncedSetSearch(event.target.value)}
             placeholder="Cerca un modello..."
           />
 

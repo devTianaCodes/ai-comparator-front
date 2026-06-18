@@ -71,9 +71,10 @@ function ModelList() {
   }, []);
 
 // funzione memorizzata aggiorna la ricerca con un piccolo ritardo.
-  const debouncedSetSearch = useMemo(() => {
-    return debounce(setSearch, 500);
-  }, [debounce]);
+  const debouncedSetSearch = useCallback(
+    debounce(setSearch, 500),
+    []
+  );
 
 
 //useEffect per fetchare i modelli ogni volta che cambiano i parametri di ricerca 

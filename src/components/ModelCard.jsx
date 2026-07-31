@@ -16,10 +16,11 @@ function ModelCard({
   const hasCompareButton = Boolean(onToggleCompare);
    //casting a boolean per verificare se la funzione onToggleCompare è stata passata 
    // come prop, e mostrare o nascondere il pulsante di comparazione di conseguenza
+  const cardClassName = isSelectedForCompare ? "model-card selected-model-card" : "model-card";
 
 
   return (
-    <li className="model-card">
+    <li className={cardClassName}>
 
       <button
         className="favorite-button model-card-favorite"

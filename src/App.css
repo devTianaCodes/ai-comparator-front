@@ -269,6 +269,11 @@ select {
   color: var(--color-text);
 }
 
+.model-list .selected-model-card {
+  border: 2px solid var(--color-peach-border);
+  background: var(--color-peach);
+}
+
 .model-card-favorite,
 .detail-favorite-button {
   width: auto;

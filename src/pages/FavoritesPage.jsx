@@ -35,7 +35,9 @@ function FavoritesPage() {
 
       {/* gestione degli stati vuoti: messaggio quando la lista preferiti è vuota */}
       {!isLoading && !error && favoriteModels.length === 0 && (
-        <p>Lista preferiti vuota.</p>
+        <p className="empty-state">
+          Lista preferiti vuota. Aggiungi un modello dai card o dalla pagina di dettaglio.
+        </p>
       )}
 
       {!isLoading && !error && favoriteModels.length > 0 && (

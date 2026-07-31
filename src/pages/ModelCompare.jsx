@@ -94,11 +94,15 @@ function ModelCompare() {
 
       {/* gestione degli stati vuoti: messaggio quando non ci sono modelli selezionati */}
       {hasNoSelectedModels && (
-        <p>Nessun elemento selezionato nel comparatore.</p>
+        <p className="empty-state">
+          Nessun elemento selezionato nel comparatore. Torna alla lista e scegli due modelli.
+        </p>
       )}
 
       {!hasNoSelectedModels && !hasTwoSelectedModels && (
-        <p>Seleziona due modelli dalla lista per avviare la comparazione.</p>
+        <p className="empty-state">
+          Seleziona due modelli dalla lista per avviare la comparazione.
+        </p>
       )}
 
       {isCompareLoading && <p>Caricamento della comparazione...</p>}

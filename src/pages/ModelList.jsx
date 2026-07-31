@@ -246,7 +246,9 @@ function ModelList() {
 
           {/* gestione degli stati vuoti: messaggio quando non ci sono risultati */}
           {!isLoading && !errorMessage && sortedModels.length === 0 && (
-            <p>Nessun risultato trovato.</p>
+            <p className="empty-state">
+              Nessun risultato trovato. Prova a cambiare ricerca o categoria.
+            </p>
           )}
 
           {!isLoading && !errorMessage && sortedModels.length > 0 && (

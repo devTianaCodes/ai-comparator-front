@@ -210,6 +210,16 @@ h2 {
   color: var(--color-danger-text);
 }
 
+.empty-state {
+  max-width: 520px;
+  margin: 18px auto;
+  padding: 14px;
+  border-radius: 8px;
+  background: var(--color-peach);
+  color: var(--color-title);
+  font-weight: 700;
+}
+
 label {
   font-weight: 700;
   color: var(--color-title);

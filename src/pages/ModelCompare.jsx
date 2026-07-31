@@ -86,6 +86,15 @@ function ModelCompare() {
     navigate("/");
   }
 
+  // Controlla se un campo ha valori diversi nei due modelli comparati
+  function isDifferentField(fieldName) {
+    if (comparedModels.length !== 2) {
+      return false;
+    }
+
+    return comparedModels[0][fieldName] !== comparedModels[1][fieldName];
+  }
+
 
 
   return (
@@ -128,7 +137,10 @@ function ModelCompare() {
 
                 <dl>
                   {compareFields.map((field) => (
-                    <div key={field.name}>
+                    <div
+                      className={isDifferentField(field.name) ? "different-field" : ""}
+                      key={field.name}
+                    >
                       <dt>{field.label}</dt>
                       
                       <dd>{model[field.name] ?? "Non disponibile"}</dd> 

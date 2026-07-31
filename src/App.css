@@ -500,6 +500,11 @@ select {
   background: var(--color-sand);
 }
 
+.compare-model-card dl .different-field {
+  border: 1px solid var(--color-peach-border);
+  background: var(--color-peach);
+}
+
 @media (max-width: 700px) {
   .app-header {
     gap: 8px;

@@ -79,6 +79,8 @@ function ModelDetail() {
 
               <p>{selectedModel.description}</p>
 
+              <h3 className="detail-section-title">Informazioni principali</h3>
+
               <dl>
                 <div>
                   <dt>Categoria</dt>
@@ -99,7 +101,11 @@ function ModelDetail() {
                   <dt>Modalità</dt>
                   <dd>{selectedModel.modality}</dd>
                 </div>
+              </dl>
 
+              <h3 className="detail-section-title">Caratteristiche tecniche</h3>
+
+              <dl>
                 <div>
                   <dt>Finestra di contesto</dt>
                   <dd>{selectedModel.contextWindow}</dd>

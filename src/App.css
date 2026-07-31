@@ -210,6 +210,10 @@ h2 {
   color: var(--color-danger-text);
 }
 
+.filter-reset-button {
+  margin-top: 4px;
+}
+
 .empty-state {
   max-width: 520px;
   margin: 18px auto;

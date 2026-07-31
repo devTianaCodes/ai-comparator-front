@@ -22,6 +22,7 @@ function ModelList() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [compareModelIds, setCompareModelIds] = useState([]);
   const [categoryError, setCategoryError] = useState("");
+  const [searchInputKey, setSearchInputKey] = useState(0);
   
 
 //useEffect per fetchare le categorie dei modelli al caricamento della pagina, 
@@ -142,6 +143,15 @@ function ModelList() {
     setCompareModelIds([]);
   }
 
+// Resetta ricerca, filtro e ordinamento
+  function resetFilters() {
+    setSearch("");
+    setCategory("");
+    setSortField("title");
+    setSortOrder("asc");
+    setSearchInputKey((currentKey) => currentKey + 1);
+  }
+
 // Costruisce il link per la pagina di comparazione con gli ID dei modelli selezionati
   const compareLink = `/compare?ids=${compareModelIds.join(",")}`;
   const errorMessage = error || categoryError;
@@ -157,6 +167,7 @@ function ModelList() {
 
           <label htmlFor="search">Cerca per nome</label>
           <input
+            key={searchInputKey}
             id="search"
             type="search"
             onChange={(event) => debouncedSetSearch(event.target.value)}
@@ -198,6 +209,14 @@ function ModelList() {
             <option value="asc">A-Z</option>
             <option value="desc">Z-A</option>
           </select>
+
+          <button
+            className="reset-button filter-reset-button"
+            type="button"
+            onClick={resetFilters}
+          >
+            Annulla filtri
+          </button>
 
           {!isLoading && !errorMessage && (
             <div className="compare-section">

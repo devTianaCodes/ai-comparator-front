@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 import { GlobalProvider } from "./context/GlobalContext";
 import DefaultLayout from "./layouts/DefaultLayout";
 import FavoritesPage from "./pages/FavoritesPage";
@@ -14,6 +15,8 @@ function App() {
 
     <GlobalProvider>
       <BrowserRouter>
+        <ScrollToTop />
+
         <Routes>
           <Route element={<DefaultLayout />}>
             

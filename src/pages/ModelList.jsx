@@ -64,13 +64,14 @@ function ModelList() {
 
     return (value) => {
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
+      timeoutId = setTimeout(() => { // Imposta un nuovo timeout per ritardare l'esecuzione della funzione di callback
         callback(value);
       }, delay);
     };
   }, []);
 
 // funzione memorizzata aggiorna la ricerca con un piccolo ritardo.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSetSearch = useCallback(
     debounce(setSearch, 500),
     []

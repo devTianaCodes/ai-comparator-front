@@ -433,6 +433,13 @@ select {
   margin: 4px 0 0;
 }
 
+.source-note {
+  margin: 14px 0 0;
+  color: var(--color-title);
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .detail-back-container {
   margin-top: 34px;
   text-align: center;

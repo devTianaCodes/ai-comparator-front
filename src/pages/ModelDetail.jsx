@@ -120,6 +120,10 @@ function ModelDetail() {
                   <dd>{selectedModel.strengths}</dd>
                 </div>
               </dl>
+
+              <p className="source-note">
+                Fonte dati: Artificial Analysis Intelligence Index.
+              </p>
             </div>
           </article>
 

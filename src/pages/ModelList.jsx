@@ -8,6 +8,7 @@ import useModels from "../hooks/useModels";
 
 
 const API_URL = import.meta.env.VITE_API_URL;
+const COMPARE_MODELS_STORAGE_KEY = "compareModelIds";
 
 function ModelList() {
 
@@ -20,7 +21,23 @@ function ModelList() {
   const [category, setCategory] = useState("");
   const [sortField, setSortField] = useState("title");
   const [sortOrder, setSortOrder] = useState("asc");
-  const [compareModelIds, setCompareModelIds] = useState([]);
+  const [compareModelIds, setCompareModelIds] = useState(() => {
+    const savedCompareIds = localStorage.getItem(COMPARE_MODELS_STORAGE_KEY);
+
+    try {
+      if (savedCompareIds) {
+        const parsedCompareIds = JSON.parse(savedCompareIds);
+
+        if (Array.isArray(parsedCompareIds)) {
+          return parsedCompareIds;
+        }
+      }
+    } catch {
+      return [];
+    }
+
+    return [];
+  });
   const [categoryError, setCategoryError] = useState("");
   const [searchInputKey, setSearchInputKey] = useState(0);
   
@@ -57,6 +74,15 @@ function ModelList() {
 
     fetchCategories();
   }, []); // Empty dependency: runs only once on initial load
+
+
+// persistenza della comparazione: salva i modelli selezionati quando cambiano
+  useEffect(() => {
+    localStorage.setItem(
+      COMPARE_MODELS_STORAGE_KEY,
+      JSON.stringify(compareModelIds)
+    );
+  }, [compareModelIds]);
 
 
 // debounce ritarda l'aggiornamento della ricerca per migliorare le prestazioni.

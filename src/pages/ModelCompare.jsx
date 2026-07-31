@@ -117,6 +117,9 @@ function ModelCompare() {
                   className="compare-model-image"
                   src={model.image}
                   alt={`Logo ${model.title}`}
+                  onError={(event) => {
+                    event.currentTarget.src = "/images/model-placeholder.svg";
+                  }}
                 />
 
                 <h3>{model.title}</h3>

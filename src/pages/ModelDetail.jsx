@@ -59,6 +59,9 @@ function ModelDetail() {
                 className="detail-image"
                 src={selectedModel.image}
                 alt={`Logo ${selectedModel.title}`}
+                onError={(event) => {
+                  event.currentTarget.src = "/images/model-placeholder.svg";
+                }}
               />
             </div>
 

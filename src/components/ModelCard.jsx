@@ -36,6 +36,9 @@ function ModelCard({
         className="model-card-image"
         src={model.image}
         alt={`Logo ${model.title}`}
+        onError={(event) => {
+          event.currentTarget.src = "/images/model-placeholder.svg";
+        }}
       />
 
       <div className="model-card-text">

@@ -201,10 +201,10 @@ function ModelList() {
 
           {!isLoading && !errorMessage && (
             <div className="compare-section">
-              <h3>Compara</h3>
+              <h3>Compara ({compareModelIds.length}/2)</h3>
 
               <p className="compare-counter">
-                Seleziona due modelli per confronto: {compareModelIds.length}/2
+                Seleziona due modelli per confronto.
               </p>
 
               {compareModelIds.length === 2 && (

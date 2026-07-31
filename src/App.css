@@ -316,6 +316,42 @@ select {
   justify-content: center;
 }
 
+.skeleton-card {
+  gap: 14px;
+}
+
+.skeleton-image,
+.skeleton-title,
+.skeleton-text,
+.skeleton-actions {
+  border-radius: 8px;
+  background: var(--color-sand);
+}
+
+.skeleton-image {
+  width: 150px;
+  aspect-ratio: 1;
+  margin: 10px auto 6px;
+}
+
+.skeleton-title {
+  width: 70%;
+  height: 22px;
+  margin: 0 auto;
+}
+
+.skeleton-text {
+  width: 45%;
+  height: 18px;
+  margin: 0 auto;
+}
+
+.skeleton-actions {
+  width: 150px;
+  height: 36px;
+  margin: auto auto 0;
+}
+
 .detail-card {
   margin-top: 24px;
   padding: 18px;

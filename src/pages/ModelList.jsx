@@ -145,6 +145,7 @@ function ModelList() {
 // Costruisce il link per la pagina di comparazione con gli ID dei modelli selezionati
   const compareLink = `/compare?ids=${compareModelIds.join(",")}`;
   const errorMessage = error || categoryError;
+  const loadingCards = [1, 2, 3, 4];
 
 
   return (
@@ -227,7 +228,20 @@ function ModelList() {
         </div>
 
         <div className="models-list-container">
-          {isLoading && <p>Caricamento dei modelli...</p>}
+          {/* loading skeletons: card provvisorie mostrate mentre i modelli vengono caricati */}
+          {isLoading && (
+            <ul className="model-list model-card-list">
+              {loadingCards.map((cardNumber) => (
+                <li className="model-card skeleton-card" key={cardNumber}>
+                  <div className="skeleton-image"></div>
+                  <div className="skeleton-title"></div>
+                  <div className="skeleton-text"></div>
+                  <div className="skeleton-actions"></div>
+                </li>
+              ))}
+            </ul>
+          )}
+
           {errorMessage && <p>{errorMessage}</p>}
 
           {/* gestione degli stati vuoti: messaggio quando non ci sono risultati */}

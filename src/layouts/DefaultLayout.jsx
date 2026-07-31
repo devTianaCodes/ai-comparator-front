@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { GlobalContext } from "../context/GlobalContext";
 
 
 function DefaultLayout() {
+
+  const { favoriteModelIds } = useContext(GlobalContext);
 
   return (
     <>
@@ -16,7 +20,7 @@ function DefaultLayout() {
 
         <nav className="header-nav-right">
           <NavLink to="/favorites">
-            Preferiti
+            Preferiti ({favoriteModelIds.length})
           </NavLink>
         </nav>
       </header>
